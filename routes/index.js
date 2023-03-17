@@ -44,9 +44,4 @@ router.get('/example/d', [cbD1, cbD2], function (req, res, next) {
     res.send('This is the response from cbD3.');
 });
 
-router.post('/', (req, res, next) => {
-    console.log(req.body);
-    res.send('Received a POST request.')
-});
-
 module.exports = router;
