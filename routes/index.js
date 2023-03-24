@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.send('Hello from the index.js router. Nice ta meetcha.');
+    res.render('index', {title: Express});
 });
 
 router.get('/example/b', function (req, res, next) {
@@ -43,5 +43,20 @@ router.get('/example/d', [cbD1, cbD2], function (req, res, next) {
 }, function cbD3 (req, res) {
     res.send('This is the response from cbD3.');
 });
+
+router.post('/', (req, res, next) => {
+    console.log(req.body);
+    res.send('Received a POST request.')
+});
+
+router.get('/cookies', (req, res, next) => {
+    let counter = req.cookies['visitCounter'];
+    console.log('Current visitCounter is at: ' + counter);
+    if (isNaN(counter)) counter = 0;
+    counter ++;
+    console.log('New visitCounter is at: ' + counter);
+    res.cookie('visitCounter', counter, {maxAge: 2*60*60*1000});
+    res.send('You have visited this page ' + counter + ' times.');
+})
 
 module.exports = router;
