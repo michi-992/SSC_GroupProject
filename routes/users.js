@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const userController = require('../controller/userController');
 
 router.get('/', userController.getUsers);
@@ -15,16 +16,16 @@ router.route('/:id/picture')
         res.sendFile(filename, options);
     })
     .post((req, res, next) => {
-        try {
+        try { // relevant code in here
             if(!req.files) {
                 res.send({
                     status: false,
-                    message: 'No file uploaded'
+                    message: 'No file uploaded',
                 });
             } else {
                 let picture = req.files.picture;
 
-                let filename = './upload/' + req.params.id + '.jpg';
+                let filename = './uploads/' + req.params.id + '.jpg';
                 picture.mv(filename);
                 console.log('File uploaded to: ' + filename);
 
@@ -33,7 +34,7 @@ router.route('/:id/picture')
                     message: 'File is uploaded',
                     data: {
                         name: picture.name,
-                        size: picture.size
+                        size: picture.size,
                     }
                 });
             }
