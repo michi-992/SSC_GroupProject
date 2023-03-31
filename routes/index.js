@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
+const { members } = require('../models/userModel');
 router.get('/', (req, res) => {
-    res.render('index', {title: 'Express'});
+    res.render('index', {title: 'Express', members: members});
 });
 
 router.get('/example/b', function(req, res, next) {
@@ -40,7 +40,7 @@ const cbD2 = function (req, res, next) {
 };
 
 router.get('/example/d', [cbD1, cbD2], function (req, res, next) {
-    console.log('Hello from this function. Response will come from the next one...');
+    console.log('Hello from this function. Repsonse will come from the next one...');
     next();
 }, function cbD3 (req, res) {
     res.send('This is the response from cbD3.');

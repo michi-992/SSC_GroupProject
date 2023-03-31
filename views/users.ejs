@@ -1,12 +1,24 @@
 <html>
 <head>
+    <link rel="stylesheet" href="/styles/styles.css">
     <title>Users</title>
 </head>
-<body>
-<h1>This is the users page</h1>
+    <body>
+        <h1>These are all <%= users.length %> Users</h1>
 
-<% for (let i = 0; i < users.length; i++) { %>
-    <p> <%= users[i].name %> </p>
-<% } %>
-</body>
+        <div id="userCards">
+            <% for (let i = 0; i < users.length; i++) { %>
+                <div class="displayCard">
+                    <p class="label">name</p>
+                    <p class="userInformation"> <%= users[i].name %> </p>
+                    <p class="label">surname</p>
+                    <p class="userInformation"> <%= users[i].surname %> </p>
+                    <p class="label">hero name</p>
+                    <p class="userInformation"> <%= users[i].hero %> </p>
+                    <p class="label">ID</p>
+                    <p class="userInformation"> <%= users[i].id %> </p>
+                </div>
+            <% } %>
+        </div>
+    </body>
 </html>

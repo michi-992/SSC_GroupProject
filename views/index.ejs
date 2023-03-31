@@ -1,8 +1,31 @@
 <html>
-<head>
-    <title>Welcome to This Page</title>
-</head>
-<body>
-<h1>Welcome to <%= title %></h1>
-</body>
+    <head>
+        <link rel="stylesheet" href="/styles/styles.css">
+        <title>Welcome to This Page</title>
+    </head>
+    <body>
+        <h1>This is Group 11!</h1>
+
+        <div id="userCards">
+            <% for (let i = 0; i < members.length; i++) { %>
+                <div class="displayCard">
+                    <p class="label">name</p>
+                    <p class="userInformation"> <%= members[i].name %> </p>
+                    <p class="label">age</p>
+                    <p class="userInformation"> <%= members[i].age %> </p>
+                    <p class="label">coding experience</p>
+                    <p class="userInformation"> <%= members[i].codingExperience %> </p>
+                    <p id="catchphrase"> <%= members[i].catchphrase %> </p>
+                </div>
+            <% } %>
+        </div>
+
+        <div id="topicDescription">
+            <h2>Our Topic</h2>
+            <p>pending...</p>
+        </div>
+    </div>
+
+
+    </body>
 </html>
