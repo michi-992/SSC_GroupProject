@@ -1,6 +1,5 @@
 const db = require('../services/database.js').config;
 
-
 // function getUsers(cb) {
 //     db.query("SELECT * FROM users", function (err, users, fields) {
 //         if (err) { cb(err) } //this is just for error handling
