@@ -1,0 +1,43 @@
+body {
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-family: Arial;
+}
+
+h1 {
+    margin: 48px;
+}
+
+#userCards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.displayCard {
+    background-color: #6cb9d5;
+    width: 30%;
+    border-radius: 30px;
+    color: #353535;
+}
+
+.label {
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.userInformation {
+    font-size: 24px;
+    margin: -10px 0 24px 0;
+    font-weight: bold;
+}
+
+#catchphrase {
+    font-style: italic;
+    margin: 40px 0;
+}
+
+#topicDescription {
+    margin-top: 40px;
+}

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
+const { members } = require('../models/userModel');
 router.get('/', (req, res) => {
-    res.render('index', {title: 'Express'});
+    res.render('index', {title: 'Express', members: members});
 });
 
 router.get('/example/b', function(req, res, next) {

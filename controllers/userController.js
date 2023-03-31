@@ -8,7 +8,7 @@ function getUsers(req, res, next) {
 
 function getUser(req, res, next) {
     const user = userModel.getUser(parseInt(req.params.id));
-    res.json(user);
+    res.render('user', {user});
 }
 
 module.exports = {
