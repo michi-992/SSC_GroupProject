@@ -1,28 +1,12 @@
-// hardcoded - no data base yet
-const users = [
-    {
-        id: 1,
-        name: "Tony",
-        surname: "Stark",
-        hero: "Iron Man"
-    },
-    {
-        id: 2,
-        name: "Wanda",
-        surname: "Maximoff",
-        hero: "Scarlet Witch"
-    },
-    {
-        id: 3,
-        name: "Peter",
-        surname: "Parker",
-        hero: "Spider-Man"
-    }
-];
+const db = require('../services/database.js').config;
 
-function getUsers() {
-    return users;
-}
+let getUsers = () => new Promise ((resolve, reject) => {
+    db.query('SELECT * FROM users', function (err, users, fields) {
+        if (err) {reject(err)}
+        console.log(users);
+        resolve(users);
+    })
+});
 
 function getUser(id) {
     let user = users.find(element => element.id === parseInt(id))
