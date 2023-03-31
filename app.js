@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
-const ejs = require('ejs');
+const db = require('./services/database.js');
 
 app.use(express.static('public'));
 
+const ejs = require('ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

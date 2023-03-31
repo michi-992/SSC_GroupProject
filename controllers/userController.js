@@ -1,9 +1,16 @@
 const userModel = require('../models/userModel');
 
+// function getUsers(req, res, next) {
+//     userModel.getUsers((err, users) => {
+//         if (err) { res.sendStatus(500) }
+//         res.render('users', {users});
+//     });
+// }
+
 function getUsers(req, res, next) {
-    const users = userModel.getUsers();
-    // res.json(users);
-    res.render('users', {users})
+    userModel.getUsers()
+        .then(users => res.render('users', {users}))
+        .catch(err => res.sendStatus(500))
 }
 
 function getUser(req, res, next) {
