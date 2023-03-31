@@ -1,4 +1,3 @@
-// hardcoded - no data base yet
 const users = [
     {
         id: 1,
