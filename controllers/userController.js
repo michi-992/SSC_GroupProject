@@ -7,9 +7,11 @@ function getUsers(req, res, next) {
 }
 
 function getUser(req, res, next) {
-    const user = userModel.getUser(parseInt(req.params.id));
-    res.render('user', {user});
+    userModel.getUser(req.params.id)
+        .then(user => res.render('user', {user}))
+        .catch(error => res.sendStatus(500))
 }
+
 
 module.exports = {
     getUsers,
