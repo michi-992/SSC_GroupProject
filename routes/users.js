@@ -3,8 +3,9 @@ const router = express.Router();
 const path = require('path');
 const userController = require('../controllers/userController');
 
-router.get('/', userController.getUsers)
-router.get('/:id', userController.getUser)
+router.get('/', userController.getUsers);
+router.get('/:id', userController.getUser);
+
 router.route('/:id/picture')
     .get((req, res, next) => {
         let uID = req.params.id;
@@ -14,9 +15,8 @@ router.route('/:id/picture')
         };
         res.sendFile(filename, options);
     })
-
     .post((req, res, next) => {
-        try {
+        try { // relevant code in here
             if(!req.files) {
                 res.send({
                     status: false,
@@ -24,6 +24,7 @@ router.route('/:id/picture')
                 });
             } else {
                 let picture = req.files.picture;
+
                 let filename = './uploads/' + req.params.id + '.jpg';
                 picture.mv(filename);
                 console.log('File uploaded to: ' + filename);

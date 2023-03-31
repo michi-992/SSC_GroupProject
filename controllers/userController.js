@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+
 function getUsers(req, res, next) {
     const users = userModel.getUsers();
     // res.json(users);
@@ -7,11 +8,10 @@ function getUsers(req, res, next) {
 
 function getUser(req, res, next) {
     const user = userModel.getUser(parseInt(req.params.id));
-    res.json(user);
+    res.render('user', {user});
 }
 
 module.exports = {
     getUsers,
     getUser,
 }
-

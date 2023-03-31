@@ -1,0 +1,23 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>User</title>
+</head>
+<body>
+<h1>This is  user <%= user.id %></h1>
+
+<div id="userCards">
+    <div class="displayCard">
+        <p class="label">name</p>
+        <p class="userInformation"> <%= user.name %> </p>
+        <p class="label">surname</p>
+        <p class="userInformation"> <%= user.surname %> </p>
+        <p class="label">hero name</p>
+        <p class="userInformation"> <%= user.hero %> </p>
+        <p class="label">ID</p>
+        <p class="userInformation"> <%= user.id %> </p>
+    </div>
+</div>
+
+</body>
+</html>

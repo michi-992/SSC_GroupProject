@@ -1,3 +1,4 @@
+// hardcoded - no data base yet
 const users = [
     {
         id: 1,
@@ -28,13 +29,34 @@ function getUser(id) {
     if(typeof user !== "undefined") {
         return user;
     } else {
+        console.log("error");
         return 'Error 404: This user could not be found.'
     }
 }
 
+const members = [
+    {
+        name: "Noëlle Jamöck",
+        age: 20,
+        codingExperience: "1 year",
+        catchphrase: "'Eh, she's just being dramatic.'",
+    },
+    {
+        name: "Caroline Mandl",
+        age: 19,
+        codingExperience: "4 years",
+        catchphrase: "'CMD called me a general failure. Ouch.'",
+    },
+    {
+        name: "Michaela Topalovic",
+        age: 20,
+        codingExperience: "1 semester",
+        catchphrase: "'As creative as this quote.'",
+    }
+]
+
 module.exports = {
     getUsers,
     getUser,
+    members
 }
-
-
