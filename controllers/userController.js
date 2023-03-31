@@ -1,10 +1,11 @@
 const userModel = require('../models/userModel');
 
 function getUsers(req, res, next) {
-    const users = userModel.getUsers();
-    // res.json(users);
-    res.render('users', {users})
+    userModel.getUsers(req.params.id)
+        .then(users => res.render('users', {users}))
+        .catch(error => res.sendStatus(500))
 }
+
 
 function getUser(req, res, next) {
     const user = userModel.getUser(parseInt(req.params.id));

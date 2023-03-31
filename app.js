@@ -3,6 +3,8 @@ const app = express();
 const port = 3000;
 const path = require('path');
 const ejs = require('ejs');
+const db = require('./services/database.js');
+
 
 app.use(express.static('public'));
 
