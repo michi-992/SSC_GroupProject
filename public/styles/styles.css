@@ -18,6 +18,7 @@ h1 {
 .displayCard {
     background-color: #6cb9d5;
     width: 30%;
+    margin: auto;
     border-radius: 30px;
     color: #353535;
 }

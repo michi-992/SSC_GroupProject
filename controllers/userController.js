@@ -15,10 +15,16 @@ function getUsers(req, res, next) {
         .catch(error => res.sendStatus(500))
 }
 
+// function getUser(req, res, next) {
+//     const user = userModel.getUser(parseInt(req.params.id));
+//     res.json(user);
+//     res.render('user', {user});
+// }
+
 function getUser(req, res, next) {
-    const user = userModel.getUser(parseInt(req.params.id));
-    res.json(user);
-    res.render('user', {user});
+    userModel.getUser(req.params.id)
+        .then(user => res.render('user', {user}))
+        .catch(error => res.sendStatus(500))
 }
 
 module.exports = {

@@ -19,15 +19,23 @@ let getUsers = () => new Promise((resolve, reject) => {
     })
 })
 
-function getUser(id) {
-    let user = users.find(element => element.id === parseInt(id))
-    if(typeof user !== "undefined") {
-        return user;
-    } else {
-        console.log("error");
-        return 'Error 404: This user could not be found.'
-    }
-}
+// function getUser(id) {
+//     let user = users.find(element => element.id === parseInt(id))
+//     if(typeof user !== "undefined") {
+//         return user;
+//     } else {
+//         console.log("error");
+//         return 'Error 404: This user could not be found.'
+//     }
+// }
+
+let getUser = (id) => new Promise ((resolve, reject) => {
+    db.query('SELECT * FROM users WHERE id=?', [id], function (err, users, fields) {
+        if (err) {reject(err)}
+        console.log(users);
+        resolve(users[0]);
+    })
+});
 
 const members = [
     {

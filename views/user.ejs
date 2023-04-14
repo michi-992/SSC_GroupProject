@@ -8,14 +8,10 @@
 
 <div id="userCards">
     <div class="displayCard">
-        <p class="label">name</p>
-        <p class="userInformation"> <%= user.name %> </p>
-        <p class="label">surname</p>
-        <p class="userInformation"> <%= user.surname %> </p>
-        <p class="label">hero name</p>
-        <p class="userInformation"> <%= user.hero %> </p>
-        <p class="label">ID</p>
-        <p class="userInformation"> <%= user.id %> </p>
+        <% Object.entries(user).forEach(([key,value]) => { %>
+            <p class="label"><%= key %> </p>
+            <p class="userInformation"><%= value %> </p>
+        <% }) %>
     </div>
 </div>
 
