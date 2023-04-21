@@ -66,4 +66,8 @@ router.get('/cookies', (req, res, next) => {
 
 })
 
+router.get('/chat', (req, res) => {
+    res.render('chat')
+})
+
 module.exports = router;
