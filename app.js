@@ -4,6 +4,7 @@ const port = 3000;
 const path = require('path');
 const ejs = require('ejs');
 const db = require('./services/database');
+const ws = require('./services/websockets');
 
 app.use(express.static('public'));
 

@@ -16,6 +16,27 @@ let getUser = (id) => new Promise ((resolve, reject) => {
     })
 });
 
+let updateUser = (userData) => new Promise((resolve, reject) => {
+    let sql = "UPDATE users SET " +
+        "name = " + db.escape(userData.name) +
+        ", surname = " + db.escape(userData.surname) +
+        ", hero = " + db.escape(userData.hero) +
+        ", email = " + db.escape(userData.email) +
+        ", info = " + db.escape(userData.info) +
+        " WHERE id = " + parseInt(userData.id);
+
+    console.log(sql);
+
+    db.query(sql, function (err, result) {
+        if (err) {
+            reject(err);
+        }
+        console.log(result);
+        console.log(result.affectedRows + " row(s) has/have been affected.");
+        resolve(userData);
+    })
+});
+
 const members = [
     {
         name: "Noëlle Jamöck",
@@ -25,7 +46,7 @@ const members = [
     },
     {
         name: "Caroline Mandl",
-        age: 19,
+        age: 20,
         codingExperience: "4 years",
         catchphrase: "'CMD called me a general failure. Ouch.'",
     },
@@ -40,5 +61,6 @@ const members = [
 module.exports = {
     getUsers,
     getUser,
-    members
+    members,
+    updateUser,
 }

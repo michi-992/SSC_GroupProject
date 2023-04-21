@@ -6,7 +6,7 @@
 <body>
 <h1>This is User <%= user.id %> </h1>
 <div id="userCard">
-    <div class="displayCardUser">
+    <div class="displayCard">
         <% Object.entries(user).forEach(([key,value]) => { %>
             <p class="label"><%= key %> </p>
             <p class="userInformation"><%= value %> </p>

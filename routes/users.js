@@ -6,6 +6,9 @@ const userController = require('../controllers/userController');
 router.get('/', userController.getUsers);
 router.get('/:id', userController.getUser);
 
+router.get('/:id/edit', userController.editUser);
+router.post('/:id', userController.updateUser);
+
 router.route('/:id/picture')
     .get((req, res, next) => {
         let uID = req.params.id;
