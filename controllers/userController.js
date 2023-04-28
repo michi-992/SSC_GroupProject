@@ -1,55 +1,81 @@
 const userModel = require('../models/userModel');
+const pictureModel = require('../models/pictureModel');
 
-// function getUsers(req, res, next) {
-//     userModel.getUsers((err, users) => {
-//         if (err) {
-//             res.sendStatus(500)
-//         }
-//         res.render('users', {users});
-//     });
-// }
-
-function getUsers(req, res, next) {
-    userModel.getUsers()
-        .then(users => res.render('users', {users}))
-        .catch(error => res.sendStatus(500))
+async function getUsers(req, res, next) {
+    try {
+        const users = await userModel.getUsers();
+        res.render('users', {users});
+    } catch (error) {
+        res.sendStatus(500);
+    }
 }
 
-// function getUser(req, res, next) {
-//     const user = userModel.getUser(parseInt(req.params.id));
-//     res.json(user);
-//     res.render('user', {user});
-// }
-
-function getUser(req, res, next) {
-    userModel.getUser(req.params.id)
-        .then(user => res.render('user', {user}))
-        .catch(error => res.sendStatus(500))
+async function getUser(req, res, next) {
+    try {
+        const user = await userModel.getUser(req.params.id);
+        const pictureUUID = await pictureModel.getPictureByUserId(req.params.id);
+        res.render('user', {user, pictureUUID});
+    } catch (error) {
+        res.sendStatus(500)
+    }
 }
 
-function editUser(req, res, next) {
-    userModel.getUser(req.params.id)
+async function editUser(req, res, next) {
+    try {
+        const userId = req.params.id;
+        let pictureUUID = await pictureModel.getPictureByUserId(userId);
+        let user = await userModel.getUser(userId);
+        res.render('editUser', {user, pictureUUID});
+    } catch (error) {
+        res.sendStatus(500)
+    }
+}
+
+async function updateUser(req, res, next) {
+    console.log("updateUser controller")
+    try {
+        await userModel.updateUser(req.body);
+        const user = await userModel.getUser(req.body.id);
+        const pictureUUID = await pictureModel.getPictureByUserId(req.body.id);
+        res.render('user', {user, pictureUUID});
+    } catch (error) {
+        res.sendStatus(500);
+    }
+}
+
+async function addUser(req, res, next) {
+    try {
+        res.render('addUser');
+    } catch (error) {
+        res.sendStatus(500);
+    }
+};
+
+async function createUser(req, res, next) {
+    try {
+        const userData = req.body;
+        const user = await userModel.createUser(userData);
+        res.redirect('/');
+    } catch (error) {
+        res.sendStatus(500);
+    }
+};
+
+function deleteUser(req, res, next) {
+    userModel.deleteUser(req.params.id)
         .then((user) => {
-            res.render('editUser', {user});
-        })
-        .catch((error) => {
-            res.sendStatus(500)
-        })
-}
-
-function updateUser(req, res, next) {
-    userModel.updateUser(req.body)
-        .then((user) => {
-            res.render('user', {user});
-        })
-        .catch((error) => {
-            res.sendStatus(500)
-        })
+            res.redirect('/users');
+        }).catch((err) => {
+        res.sendStatus(500);
+    })
 }
 
 module.exports = {
     getUsers,
     getUser,
     editUser,
-    updateUser
+    updateUser,
+    addUser,
+    createUser,
+    deleteUser
 }

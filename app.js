@@ -6,6 +6,7 @@ const db = require('./services/database');
 const websockets = require('./services/websockets');
 
 app.use(express.static('public'));
+app.use(express.static('uploads'));
 
 const ejs = require('ejs');
 app.set('views', path.join(__dirname, 'views'));

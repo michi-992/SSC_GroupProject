@@ -6,16 +6,24 @@
 <body>
 <h1>These are all <%= users.length %> Users</h1>
 
-<div id="userCards">
-    <% users.forEach(function (users) { %>
-        <div class="displayCard">
-            <%  Object.entries(users).forEach(([key,value]) => { %>
-                <p class="label"><%= key %> </p>
-                <p class="userInformation"><%= value %> </p>
-            <% }) %>
-        </div>
-    <% }) %>
-</div>
+<table id="userCards">
+    <% for (let i = 0; i < users.length; i++) { %>
+        <% if (i % 3 === 0) { %>
+        <tr>
+            <% } %>
+            <td class="displayCard">
+                <% Object.entries(users[i]).forEach(([key, value]) => { %>
+                    <p class="label"><%= key %> </p>
+                    <p class="userInformation"><%= value %> </p>
+
+                <% }) %>
+                    <a href="/users/<%= users[i].id %>">See more</a>
+            </td>
+            <% if (i % 3 === 2 || i === users.length - 1) { %>
+        </tr>
+        <% } %>
+    <% } %>
+</table>
 </div>
 </body>
 </html>

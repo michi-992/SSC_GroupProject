@@ -10,15 +10,24 @@ h1 {
 }
 
 #userCards {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 40px;
+}
+#userCard {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
 }
 
+
 .displayCard {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
     background-color: #6cb9d5;
-    width: 30%;
-    margin: auto;
+    margin: 20px;
+    padding: 10px;
     border-radius: 30px;
     color: #353535;
 }
@@ -41,4 +50,8 @@ h1 {
 
 #topicDescription {
     margin-top: 40px;
+}
+
+input {
+    margin: 5px 0px 20px 0px;
 }
