@@ -1,13 +1,33 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+
 const userController = require('../controllers/userController');
+const db = require('../services/database').config;
+
+const authenticationService = require('../services/authentication');
+
+router.use(authenticationService.authenticateJWT)
+
+router.get('/register', userController.addUser);
+router.post('/register', userController.createUser);
+
+router.get('/login', (req, res) => {
+    res.render('login');
+});
+
+router.post('/login', (req, res) => {
+    console.log(req.body);
+    res.redirect('/');
+});
 
 router.get('/', userController.getUsers);
 router.get('/:id', userController.getUser);
 
 router.get('/:id/edit', userController.editUser);
 router.post('/:id', userController.updateUser);
+
+router.delete('/:id/delete', userController.deleteUser);
 
 router.route('/:id/picture')
     .get((req, res, next) => {

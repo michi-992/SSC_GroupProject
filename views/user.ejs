@@ -1,16 +1,31 @@
 <html>
 <head>
-    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css"/>
     <title>User</title>
+    <script>
+        function deleteRequest() {
+            if (confirm('Are you sure you want to delete this user?')) {
+                fetch('/users/<%= user.id %>/delete', {method:'delete'})
+                    .then(() => {
+                        location.href="/users";
+                    })
+            }
+        }
+    </script>
 </head>
 <body>
-<h1>This is User <%= user.id %> </h1>
+<h1>This is user <%= user.id %></h1>
+
 <div id="userCard">
     <div class="displayCard">
-        <% Object.entries(user).forEach(([key,value]) => { %>
+        <% Object.entries(user).forEach(([key, value]) => { %>
             <p class="label"><%= key %> </p>
             <p class="userInformation"><%= value %> </p>
         <% }) %>
+
+        <a href="/users/<%= user.id %>/edit">Edit</a>
+
+            <button onClick="deleteRequest()">Delete User</button>
     </div>
 </div>
 </body>
