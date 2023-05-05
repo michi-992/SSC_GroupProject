@@ -1,4 +1,13 @@
 const db = require('../services/database.js').config;
+const bcrypt = require('bcrypt');
+
+// function getUsers(cb) {
+//     db.query("SELECT * FROM users", function (err, users, fields) {
+//         if (err) { cb(err) }
+//         console.log(users);
+//         cb(null, users)
+//     });
+// }
 
 let getUsers = () => new Promise((resolve, reject) => {
     db.query("SELECT * FROM users", function (err, users, fields) {
@@ -10,6 +19,15 @@ let getUsers = () => new Promise((resolve, reject) => {
     })
 })
 
+// function getUser(id) {
+//     let user = users.find(element => element.id === parseInt(id))
+//     if(typeof user !== "undefined") {
+//         return user;
+//     } else {
+//         console.log("error");
+//         return 'Error 404: This user could not be found.'
+//     }
+// }
 
 let getUser = (id) => new Promise((resolve, reject) => {
     db.query('SELECT * FROM users WHERE id=?', [id], function (err, users, fields) {
@@ -20,18 +38,19 @@ let getUser = (id) => new Promise((resolve, reject) => {
     })
 });
 
-let updateUser = (userData) => new Promise((resolve, reject) => {
+let updateUser = (userData) => new Promise(async (resolve, reject) => {
+    userData.password = await bcrypt.hash(userData.password, 10);
     let sql = "UPDATE users SET " +
         "name = " + db.escape(userData.name) +
         ", surname = " + db.escape(userData.surname) +
         ", hero = " + db.escape(userData.hero) +
         ", email = " + db.escape(userData.email) +
         ", info = " + db.escape(userData.info) +
+        ", password = " + db.escape(userData.password) +
         "WHERE id = " + parseInt(userData.id);
 
     db.query(sql, function (err, result, fields) {
         if (err) {
-            console.log(err);
             reject(err);
         }
         resolve(userData);
@@ -39,17 +58,18 @@ let updateUser = (userData) => new Promise((resolve, reject) => {
 })
 
 let addUser = () => new Promise((resolve, reject) => {
-//exist for now
+    //exist for now
 })
 
-let createUser = (userData) => new Promise((resolve, reject) => {
+let createUser = (userData) => new Promise(async (resolve, reject) => {
+    userData.password = await bcrypt.hash(userData.password, 10);
     const sql = "INSERT INTO users SET " +
         "name = " + db.escape(userData.name) +
         ", surname = " + db.escape(userData.surname) +
         ", hero = " + db.escape(userData.hero) +
         ", email = " + db.escape(userData.email) +
-        ", password = " + db.escape(userData.password) +
-        ", info = " + db.escape(userData.info);
+        ", info = " + db.escape(userData.info) +
+        ", password = " + db.escape(userData.password);
 
     db.query(sql, function (err, result, fields) {
         if (err) {

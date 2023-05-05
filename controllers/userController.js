@@ -1,42 +1,48 @@
 const userModel = require('../models/userModel');
+const pictureModel = require('../models/pictureModel');
 
 async function getUsers(req, res, next) {
     try {
         const users = await userModel.getUsers();
         res.render('users', {users});
     } catch (error) {
-        res.sendStatus(500);
+        res.status(404)
+        next(err);
     }
 }
 
 async function getUser(req, res, next) {
     try {
         const user = await userModel.getUser(req.params.id);
-
-        res.render('user', {user});
+        const pictureUUID = await pictureModel.getPictureByUserId(req.params.id);
+        res.render('user', {user, pictureUUID});
     } catch (error) {
-        res.sendStatus(500)
+        res.status(404)
+        next(err);
     }
 }
 
 async function editUser(req, res, next) {
     try {
         const userId = req.params.id;
+        let pictureUUID = await pictureModel.getPictureByUserId(userId);
         let user = await userModel.getUser(userId);
-        res.render('editUser', {user});
+        res.render('editUser', {user, pictureUUID});
     } catch (error) {
-        res.sendStatus(500)
+        res.status(404)
+        next(err);
     }
 }
 
 async function updateUser(req, res, next) {
-    console.log("updateUser controller")
     try {
         await userModel.updateUser(req.body);
         const user = await userModel.getUser(req.body.id);
-        res.render('user', {user});
+        const pictureUUID = await pictureModel.getPictureByUserId(req.body.id);
+        res.render('user', {user, pictureUUID});
     } catch (error) {
-        res.sendStatus(500);
+        res.status(404)
+        next(err);
     }
 }
 
@@ -44,9 +50,10 @@ async function addUser(req, res, next) {
     try {
         res.render('addUser');
     } catch (error) {
-        res.sendStatus(500);
+        res.status(404)
+        next(err);
     }
-};
+}
 
 async function createUser(req, res, next) {
     try {
@@ -54,16 +61,18 @@ async function createUser(req, res, next) {
         const user = await userModel.createUser(userData);
         res.redirect('/');
     } catch (error) {
-        res.sendStatus(500);
+        res.status(404)
+        next(err);
     }
-};
+}
 
 function deleteUser(req, res, next) {
     userModel.deleteUser(req.params.id)
         .then((user) => {
             res.redirect('/users');
         }).catch((err) => {
-        res.sendStatus(500);
+        res.status(404)
+        next(err);
     })
 }
 

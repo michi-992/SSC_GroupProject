@@ -17,16 +17,18 @@
 <h1>This is user <%= user.id %></h1>
 
 <div id="userCard">
+    <img src="/uploads/<%= pictureUUID ? pictureUUID + '.jpg' : '' %>" alt="User image"/>
     <div class="displayCard">
         <% Object.entries(user).forEach(([key, value]) => { %>
             <p class="label"><%= key %> </p>
             <p class="userInformation"><%= value %> </p>
         <% }) %>
 
-        <a href="/users/<%= user.id %>/edit">Edit</a>
+        <a href="/users/<%= user.id %>/edit">Edit user</a>
 
-            <button onClick="deleteRequest()">Delete User</button>
+        <button onClick="deleteRequest()">Delete User</button>
     </div>
+
 </div>
 </body>
 </html>
