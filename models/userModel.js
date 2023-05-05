@@ -1,4 +1,5 @@
 const db = require('../services/database.js').config;
+const bcrypt = require('bcrypt');
 
 // function getUsers(cb) {
 //     db.query("SELECT * FROM users", function (err, users, fields) {
@@ -37,7 +38,8 @@ let getUser = (id) => new Promise((resolve, reject) => {
     })
 });
 
-let updateUser = (userData) => new Promise((resolve, reject) => {
+let updateUser = (userData) => new Promise(async (resolve, reject) => {
+    userData.password = await bcrypt.hash(userData.password, 10);
     let sql = "UPDATE users SET " +
         "name = " + db.escape(userData.name) +
         ", surname = " + db.escape(userData.surname) +
@@ -49,7 +51,6 @@ let updateUser = (userData) => new Promise((resolve, reject) => {
 
     db.query(sql, function (err, result, fields) {
         if (err) {
-            console.log(err);
             reject(err);
         }
         resolve(userData);
@@ -60,7 +61,8 @@ let addUser = () => new Promise((resolve, reject) => {
     //exist for now
 })
 
-let createUser = (userData) => new Promise((resolve, reject) => {
+let createUser = (userData) => new Promise(async (resolve, reject) => {
+    userData.password = await bcrypt.hash(userData.password, 10);
     const sql = "INSERT INTO users SET " +
         "name = " + db.escape(userData.name) +
         ", surname = " + db.escape(userData.surname) +

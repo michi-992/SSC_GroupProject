@@ -17,7 +17,7 @@
 <h1>This is user <%= user.id %></h1>
 
 <div id="userCard">
-    <img src="<%= pictureUUID ? pictureUUID + '.jpg' : '' %>" alt="User image"/>
+    <img src="/uploads/<%= pictureUUID ? pictureUUID + '.jpg' : '' %>" alt="User image"/>
     <div class="displayCard">
         <% Object.entries(user).forEach(([key, value]) => { %>
             <p class="label"><%= key %> </p>

@@ -10,32 +10,55 @@
     <script>
         const ws = new WebSocket('ws://localhost:8080');
 
-        ws.onopen = function() {
+        ws.onopen = function () {
             console.log('websocket connection established');
-            ws.send('Hello from Client');
+            // ws.send('Hello from Client');
+            ws.send(JSON.stringify({
+                message: 'hello from client',
+                room: '',
+            }))
         }
 
-        ws.onmessage = function(ev) {
+        ws.onmessage = function (ev) {
             console.log(ev);
-            addTextMessage(ev.data);
+            addTextMessage(JSON.parse(ev.data));
         }
 
         function sendMyMessage() {
-            const text = document.getElementById('text').value;
-            ws.send(text);
+            // const text = document.getElementById('text').value;
+            // ws.send(text);
+            let text = document.getElementById("text").value;
+            let room = document.getElementById("room").value;
+            let message = {
+                message: text,
+                room: room,
+            }
+            ws.send(JSON.stringify(message))
         }
 
-        function addTextMessage(message){
+        function addTextMessage(message) {
             let tag = document.createElement("p");
-            let text = document.createTextNode(message);
-            tag.appendChild(text);
-            let element = document.getElementById("messages");
-            element.appendChild(tag);
+            // let text = document.createTextNode(message);
+            // tag.appendChild(text);
+            // let element = document.getElementById("messages");
+            // element.appendChild(tag);
+            tag.innerHTML = message.message;
+            document.getElementById("messages").appendChild(tag);
+        }
+
+        function join() {
+            const room = document.getElementById("room").value;
+            ws.send(JSON.stringify({
+                joinRoom: room
+            }));
         }
 
     </script>
 </head>
 <body>
+    <input id="room" placeholder="test" type="text"/>
+    <button onclick="join()">Join room</button>
+
     <div id="messages"></div>
     <input id="text" type="text"></input>
     <button onclick="sendMyMessage()">Send</button>

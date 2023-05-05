@@ -13,14 +13,11 @@ router.post('/register', userController.createUser);
 router.use(authenticationService.authenticateJWT);
 
 
-router.delete('/:id/delete', userController.deleteUser);
-
-
-
 router.get('/:id', userController.getUser);
-
 router.get('/:id/edit', userController.editUser);
 router.post('/:id', userController.updateUser);
+router.delete('/:id/delete', userController.deleteUser);
+
 
 router.get('/:id/picture/upload', (req, res, next) => {
     res.render('upload', {id: req.params.id});
