@@ -3,6 +3,7 @@ const router = express.Router();
 const { members } = require('../models/userModel');
 const authenticationService = require('../services/authentication');
 const userModel = require('../models/userModel')
+const authService = require("../services/authentication");
 
 router.get('/', (req, res) => {
     res.render('index', {title: 'Express', members: members});
@@ -48,8 +49,10 @@ router.get('/cookies', (req, res, next) => {
 
 })
 
-router.get('/chat', (req, res) => {
-    res.render('chat')
-})
-
+// router.get('/chat', (req, res) => {
+//     res.render('chat')
+// })
+router.get('/chat', authService.getUserThroughToken, (req, res) => {
+    res.render('chat', { username: req.user.username });
+});
 module.exports = router;

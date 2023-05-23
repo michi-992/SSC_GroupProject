@@ -55,3 +55,26 @@ h1 {
 input {
     margin: 5px 0px 20px 0px;
 }
+
+.activeButton {
+    background-color: yellow;
+}
+
+#messages {
+    /* does not scroll work yet*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: lightskyblue;
+    color: black;
+    height: 300px;
+    width: 600px;
+    margin: 15px auto;
+    border-radius: 10px;
+}
+
+#messages p {
+    text-align: left;
+    margin: 0;
+    padding: 5px 10px;
+}
