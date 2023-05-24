@@ -2,7 +2,6 @@ const fs = require("fs");
 const uuid = require("uuid");
 const db = require('../services/database.js').config;
 
-
 let getProfilePicByUserId = (uID) => new Promise((resolve, reject) => {
     db.query('SELECT pictureUUID FROM user_pictures WHERE uID = ?', [uID], function (err, results, fields) {
         if (err) {
