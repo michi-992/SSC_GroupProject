@@ -22,6 +22,6 @@ router.delete('/:id/delete', userController.deleteUser);
 router.get('/:id/picture/upload', (req, res, next) => {
     res.render('upload', {id: req.params.id});
 });
-router.post('/:id/picture', pictureController.uploadPicture);
+router.post('/:id/picture', pictureController.uploadProfilePic);
 
 module.exports = router;

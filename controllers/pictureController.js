@@ -1,12 +1,9 @@
 const pictureModel = require('../models/pictureModel');
-const uuid = require('uuid');
-const db = require("../services/database").config;
 
-async function getPictureByUserId(uID) {
-    return pictureModel.getPictureByUserId();
-
+async function getProfilePicByUserId(uID) {
+    return pictureModel.getProfilePicByUserId(uID);
 }
-async function uploadPicture(req, res, next) {
+async function uploadProfilePic(req, res, next) {
     try {
         if (!req.files) {
             res.send({
@@ -16,23 +13,18 @@ async function uploadPicture(req, res, next) {
         } else {
             const uID = req.params.id;
             const picture = req.files.picture;
-            const pictureUUID = uuid.v4();
-            const pictureName = `${pictureUUID}.jpg`;
-            const filename = `./uploads/${pictureName}`;
 
-            await pictureModel.updateUserPicture(uID, pictureUUID);
-            await picture.mv(filename);
-            console.log('File uploaded to: ' + filename);
+            await pictureModel.updateUserProfilePic(uID, picture);
+
 
             res.redirect(`/users/${uID}`);
         }
     } catch (err) {
-        console.log(err); // log the error to the console
-        res.status(500).send({error: err.message}); // send the error message as response
+        res.status(500)
     }
 }
 
 module.exports = {
-    uploadPicture,
-    getPictureByUserId
+    uploadProfilePic,
+    getProfilePicByUserId
 };
