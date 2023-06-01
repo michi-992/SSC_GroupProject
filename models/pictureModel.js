@@ -1,6 +1,7 @@
 const fs = require("fs");
 const uuid = require("uuid");
 const db = require('../services/database.js').config;
+
 let getProfilePicByUserId = (uID) => new Promise((resolve, reject) => {
     db.query('SELECT pictureUUID FROM user_pictures WHERE uID = ?', [uID], function (err, results, fields) {
         if (err) {
@@ -14,6 +15,7 @@ let getProfilePicByUserId = (uID) => new Promise((resolve, reject) => {
         }
     })
 });
+
 const updateUserProfilePic = async (uID, picture) => {
     try {
         const pictureUUID = uuid.v4();
@@ -40,6 +42,7 @@ const updateUserProfilePic = async (uID, picture) => {
         throw err;
     }
 };
+
 module.exports = {
     getProfilePicByUserId,
     updateUserProfilePic,

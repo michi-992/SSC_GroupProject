@@ -4,13 +4,17 @@ const { members } = require('../models/userModel');
 const authenticationService = require('../services/authentication');
 const userModel = require('../models/userModel')
 const authService = require("../services/authentication");
+
 router.get('/', (req, res) => {
     res.render('index', {title: 'Express', members: members});
 });
+
+
 router.post('/', (req, res) => {
     console.log(req.body);
     res.send('received a POST request');
 });
+
 router.route('/login')
     .get((req, res, next) => {
         res.render('login');
@@ -24,14 +28,17 @@ router.route('/login')
                 res.sendStatus(500)
             })
     });
+
 router.get('/logout', (req, res) => {
     res.cookie('accessToken', '', {maxAge: 0});
     res.redirect('/')
 })
+
 router.get('/cookies', (req, res, next) => {
     // console.log(req.cookies); //read cookie
     // res.cookie('myCookie', 'Hello World'); // set cookies
     // res.send('Cookie has been set');
+
     let counter = req.cookies['visitCounter'];
     console.log('Current visitCounter is at ' + counter);
     if (isNaN(counter)) counter = 0;
@@ -39,7 +46,9 @@ router.get('/cookies', (req, res, next) => {
     console.log('New visitCounter is at ' + counter);
     res.cookie('visitCounter', counter, {maxAge: 2*60*60*1000});
     res.send('You have visited this page ' + counter + ' times.');
+
 })
+
 // router.get('/chat', (req, res) => {
 //     res.render('chat')
 // })

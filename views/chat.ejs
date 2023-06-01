@@ -12,6 +12,7 @@
         const username = '<%= username %>';
         let currentRoom = '';
         const roomButtons = document.getElementsByClassName('roomButton');
+
         ws.onopen = function () {
             console.log('websocket connection established');
             // ws.send('Hello from Client');
@@ -21,10 +22,12 @@
                 username: 'client'
             }))
         }
+
         ws.onmessage = function (ev) {
             console.log(ev);
             addTextMessage(JSON.parse(ev.data));
         }
+
         function sendMyMessage() {
             // const text = document.getElementById('text').value;
             // ws.send(text);
@@ -39,6 +42,7 @@
             }
             ws.send(JSON.stringify(message))
         }
+
         function addTextMessage(message) {
             let tag = document.createElement("p");
             // let text = document.createTextNode(message);
@@ -48,32 +52,39 @@
             tag.innerHTML = `<strong>${message.username}: </strong>${message.message}`;
             document.getElementById("messages").appendChild(tag);
         }
+
         function join(room) {
             // const room = document.getElementById("room").value;
             currentRoom = room;
             document.getElementById('currentRoom').value = room;
+
             for (let i = 0; i < roomButtons.length; i++) {
                 roomButtons[i].classList.remove('activeButton');
             }
             document.getElementById(room).classList.add("activeButton");
             document.getElementById("messages").innerHTML = '';
+
             ws.send(JSON.stringify({
                 joinRoom: room
             }));
         }
+
     </script>
 </head>
 <body>
-<h1 id="username" value="<%= username %>">Welcome, <%= username %></h1>
-<!--    <input id="room" placeholder="test" type="text"/>-->
-<button class="roomButton" onclick="join('fire')" id="fire">Join Fire room</button>
-<button class="roomButton" onclick="join('air')" id="air">Join Air room</button>
-<button class="roomButton" onclick="join('water')" id="water">Join Water room</button>
-<button class="roomButton" onclick="join('earth')" id="earth">Join Earth room</button>
-<button class="roomButton" onclick="join('cabbage')" id="cabbage">Join Cabbage room</button>
-<div id="messages"></div>
-<input id="text" type="text">
-<input id="currentRoom" type="hidden">
-<button onclick="sendMyMessage()">Send</button>
+    <h1 id="username" value="<%= username %>">Welcome, <%= username %></h1>
+    <!--    <input id="room" placeholder="test" type="text"/>-->
+
+    <button class="roomButton" onclick="join('fire')" id="fire">Join Fire room</button>
+    <button class="roomButton" onclick="join('air')" id="air">Join Air room</button>
+    <button class="roomButton" onclick="join('water')" id="water">Join Water room</button>
+    <button class="roomButton" onclick="join('earth')" id="earth">Join Earth room</button>
+    <button class="roomButton" onclick="join('cabbage')" id="cabbage">Join Cabbage room</button>
+
+    <div id="messages"></div>
+    <input id="text" type="text">
+    <input id="currentRoom" type="hidden">
+    <button onclick="sendMyMessage()">Send</button>
+
 </body>
 </html>

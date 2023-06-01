@@ -12,6 +12,7 @@ wss.on('connection', ws => {
     // ws.send('Hello! Hello this is the welcome message from the server!!')
     ws.send(JSON.stringify({message: 'Hello! Message From Server!!', username: 'Devs'}));
 })
+
 function websocketSendToAll(text) {
     wss.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
