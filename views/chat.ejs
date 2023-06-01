@@ -9,60 +9,71 @@
     <link rel="stylesheet" href="/styles/styles.css">
     <script>
         const ws = new WebSocket('ws://localhost:8080');
-
+        const username = '<%= username %>';
+        let currentRoom = '';
+        const roomButtons = document.getElementsByClassName('roomButton');
         ws.onopen = function () {
             console.log('websocket connection established');
             // ws.send('Hello from Client');
             ws.send(JSON.stringify({
                 message: 'hello from client',
                 room: '',
+                username: 'client'
             }))
         }
-
         ws.onmessage = function (ev) {
             console.log(ev);
             addTextMessage(JSON.parse(ev.data));
         }
-
         function sendMyMessage() {
             // const text = document.getElementById('text').value;
             // ws.send(text);
             let text = document.getElementById("text").value;
-            let room = document.getElementById("room").value;
+            // let room = document.getElementById("room").value;
+            let room = currentRoom;
+            console.log(room);
             let message = {
                 message: text,
                 room: room,
+                username: username,
             }
             ws.send(JSON.stringify(message))
         }
-
         function addTextMessage(message) {
             let tag = document.createElement("p");
             // let text = document.createTextNode(message);
             // tag.appendChild(text);
             // let element = document.getElementById("messages");
             // element.appendChild(tag);
-            tag.innerHTML = message.message;
+            tag.innerHTML = `<strong>${message.username}: </strong>${message.message}`;
             document.getElementById("messages").appendChild(tag);
         }
-
-        function join() {
-            const room = document.getElementById("room").value;
+        function join(room) {
+            // const room = document.getElementById("room").value;
+            currentRoom = room;
+            document.getElementById('currentRoom').value = room;
+            for (let i = 0; i < roomButtons.length; i++) {
+                roomButtons[i].classList.remove('activeButton');
+            }
+            document.getElementById(room).classList.add("activeButton");
+            document.getElementById("messages").innerHTML = '';
             ws.send(JSON.stringify({
                 joinRoom: room
             }));
         }
-
     </script>
 </head>
 <body>
-<input id="room" placeholder="test" type="text"/>
-<button onclick="join()">Join room</button>
-
+<h1 id="username" value="<%= username %>">Welcome, <%= username %></h1>
+<!--    <input id="room" placeholder="test" type="text"/>-->
+<button class="roomButton" onclick="join('fire')" id="fire">Join Fire room</button>
+<button class="roomButton" onclick="join('air')" id="air">Join Air room</button>
+<button class="roomButton" onclick="join('water')" id="water">Join Water room</button>
+<button class="roomButton" onclick="join('earth')" id="earth">Join Earth room</button>
+<button class="roomButton" onclick="join('cabbage')" id="cabbage">Join Cabbage room</button>
 <div id="messages"></div>
-<input id="text" type="text"></input>
+<input id="text" type="text">
+<input id="currentRoom" type="hidden">
 <button onclick="sendMyMessage()">Send</button>
-
-
 </body>
 </html>

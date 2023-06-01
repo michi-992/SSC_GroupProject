@@ -1,6 +1,5 @@
 const db = require('../services/database.js').config;
 const bcrypt = require('bcrypt');
-
 // function getUsers(cb) {
 //     db.query("SELECT * FROM users", function (err, users, fields) {
 //         if (err) { cb(err) }
@@ -8,7 +7,6 @@ const bcrypt = require('bcrypt');
 //         cb(null, users)
 //     });
 // }
-
 let getUsers = () => new Promise((resolve, reject) => {
     db.query("SELECT * FROM users", function (err, users, fields) {
         if (err) {
@@ -18,7 +16,6 @@ let getUsers = () => new Promise((resolve, reject) => {
         }
     })
 })
-
 // function getUser(id) {
 //     let user = users.find(element => element.id === parseInt(id))
 //     if(typeof user !== "undefined") {
@@ -28,7 +25,6 @@ let getUsers = () => new Promise((resolve, reject) => {
 //         return 'Error 404: This user could not be found.'
 //     }
 // }
-
 let getUser = (id) => new Promise((resolve, reject) => {
     db.query('SELECT * FROM users WHERE id=?', [id], function (err, users, fields) {
         if (err) {
@@ -37,7 +33,6 @@ let getUser = (id) => new Promise((resolve, reject) => {
         resolve(users[0]);
     })
 });
-
 let updateUser = (userData) => new Promise(async (resolve, reject) => {
     userData.password = await bcrypt.hash(userData.password, 10);
     let sql = "UPDATE users SET " +
@@ -48,7 +43,6 @@ let updateUser = (userData) => new Promise(async (resolve, reject) => {
         ", info = " + db.escape(userData.info) +
         ", password = " + db.escape(userData.password) +
         "WHERE id = " + parseInt(userData.id);
-
     db.query(sql, function (err, result, fields) {
         if (err) {
             reject(err);
@@ -56,11 +50,9 @@ let updateUser = (userData) => new Promise(async (resolve, reject) => {
         resolve(userData);
     })
 })
-
 let addUser = () => new Promise((resolve, reject) => {
     //exist for now
 })
-
 let createUser = (userData) => new Promise(async (resolve, reject) => {
     userData.password = await bcrypt.hash(userData.password, 10);
     const sql = "INSERT INTO users SET " +
@@ -70,7 +62,6 @@ let createUser = (userData) => new Promise(async (resolve, reject) => {
         ", email = " + db.escape(userData.email) +
         ", info = " + db.escape(userData.info) +
         ", password = " + db.escape(userData.password);
-
     db.query(sql, function (err, result, fields) {
         if (err) {
             reject(err);
@@ -80,7 +71,6 @@ let createUser = (userData) => new Promise(async (resolve, reject) => {
         resolve(userData);
     })
 })
-
 let deleteUser = (id) => new Promise((resolve, reject) => {
     db.query('DELETE FROM users WHERE id=?', [id], function (err, result) {
         if (err) {
@@ -89,7 +79,6 @@ let deleteUser = (id) => new Promise((resolve, reject) => {
         resolve(id);
     })
 });
-
 const members = [
     {
         name: "Noëlle Jamöck",
@@ -110,7 +99,6 @@ const members = [
         catchphrase: "'As creative as this quote.'",
     }
 ]
-
 module.exports = {
     getUsers,
     getUser,

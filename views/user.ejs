@@ -15,7 +15,6 @@
 </head>
 <body>
 <h1>This is user <%= user.id %></h1>
-
 <div id="userCard">
     <img src="/uploads/<%= pictureUUID ? pictureUUID + '.jpg' : '' %>" alt="User image"/>
     <div class="displayCard">
@@ -23,12 +22,9 @@
             <p class="label"><%= key %> </p>
             <p class="userInformation"><%= value %> </p>
         <% }) %>
-
         <a href="/users/<%= user.id %>/edit">Edit user</a>
-
         <button onClick="deleteRequest()">Delete User</button>
     </div>
-
 </div>
 </body>
 </html>

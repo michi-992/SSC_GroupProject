@@ -1,8 +1,7 @@
 const fs = require("fs");
+const uuid = require("uuid");
 const db = require('../services/database.js').config;
-
-
-let getPictureByUserId = (uID) => new Promise((resolve, reject) => {
+let getProfilePicByUserId = (uID) => new Promise((resolve, reject) => {
     db.query('SELECT pictureUUID FROM user_pictures WHERE uID = ?', [uID], function (err, results, fields) {
         if (err) {
             reject(err)
@@ -15,14 +14,16 @@ let getPictureByUserId = (uID) => new Promise((resolve, reject) => {
         }
     })
 });
-
-const updateUserPicture = async (uID, pictureUUID) => {
+const updateUserProfilePic = async (uID, picture) => {
     try {
+        const pictureUUID = uuid.v4();
+        const pictureName = `${pictureUUID}.jpg`;
+        const filename = `./public/uploads/${pictureName}`;
         await db.query('SELECT pictureUUID FROM user_pictures WHERE uID = ?', [uID], async function (error, results, fields) {
             if (results && results.length > 0) {
                 const existingPictureUUID = results[0].pictureUUID;
                 if (existingPictureUUID !== pictureUUID) {
-                    const existingFilename = `./uploads/${existingPictureUUID}.jpg`;
+                    const existingFilename = `./public/uploads/${existingPictureUUID}.jpg`;
                     fs.unlinkSync(existingFilename);
                     await db.query('UPDATE user_pictures SET pictureUUID = ? WHERE uID = ?', [pictureUUID, uID]);
                 } else {
@@ -31,15 +32,15 @@ const updateUserPicture = async (uID, pictureUUID) => {
             } else {
                 console.log("no existing picture found");
                 const insertSql = 'INSERT INTO user_pictures (uID, pictureUUID) VALUES (?, ?)';
-                const insertResult = await db.query(insertSql, [uID, pictureUUID]);
+                await db.query(insertSql, [uID, pictureUUID]);
             }
         })
+        await picture.mv(filename);
     } catch (err) {
         throw err;
     }
 };
-
 module.exports = {
-    getPictureByUserId,
-    updateUserPicture,
+    getProfilePicByUserId,
+    updateUserProfilePic,
 };
