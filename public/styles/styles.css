@@ -1,23 +1,65 @@
 body {
     text-align: center;
-    background-color: black;
-    color: white;
+    background-image: url('../uploads/DefaultBackground.png');
+    color: #48321f;
     font-family: Arial;
 }
 
+#topNav {
+    box-shadow: 0 5px 10px black;
+    background-color: #685646;
+    padding: 20px;
+    margin: 0;
+    position: sticky;
+    top: 0;
+}
+
+#topNav a {
+    color: white;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.image-container {
+    width: 937px;
+    height: 578px;
+    margin: 20px auto;
+    background-image: url('../uploads/Content.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    /*align-content: center;*/
+}
+
+.userDiv {
+    border: 1px black;
+}
+
 h1 {
-    margin: 48px;
+    margin: 12px;
 }
 
 #userCards {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 40px;
+}
+#userCard {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
 }
 
+
 .displayCard {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
     background-color: #6cb9d5;
-    width: 30%;
+    margin: 20px;
+    padding: 10px;
     border-radius: 30px;
     color: #353535;
 }
@@ -38,6 +80,41 @@ h1 {
     margin: 40px 0;
 }
 
-#topicDescription {
-    margin-top: 40px;
+#content {
+margin-top: 60px;
+    margin-bottom: 100px;
+    overflow-y: scroll;
+    width: 80%;
+}
+
+input {
+    margin: 5px 0px 10px 0px;
+}
+
+.activeButton {
+    background-color: yellow;
+}
+
+#messages {
+    /* does not scroll work yet*/
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    /*justify-content: flex-end;*/
+    background-color: #48321f;
+    color: white;
+    height: 270px;
+    width: 600px;
+    margin: 15px auto;
+    border-radius: 10px;
+}
+
+#messages p {
+    text-align: left;
+    margin: 0;
+    padding: 5px 10px;
+}
+
+#profilePic {
+    width:50%;
 }
