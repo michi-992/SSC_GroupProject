@@ -39,11 +39,10 @@ let getUser = (id) => new Promise((resolve, reject) => {
 });
 
 let updateUser = (userData) => new Promise(async (resolve, reject) => {
-    userData.password = await bcrypt.hash(userData.password, 10);
     let sql = "UPDATE users SET " +
         "name = " + db.escape(userData.name) +
         ", surname = " + db.escape(userData.surname) +
-        ", hero = " + db.escape(userData.hero) +
+        ", comfortCharacter = " + db.escape(userData.comfortCharacter) +
         ", email = " + db.escape(userData.email) +
         ", info = " + db.escape(userData.info) +
         ", password = " + db.escape(userData.password) +
@@ -51,6 +50,7 @@ let updateUser = (userData) => new Promise(async (resolve, reject) => {
 
     db.query(sql, function (err, result, fields) {
         if (err) {
+            console.log(err);
             reject(err);
         }
         resolve(userData);
@@ -66,13 +66,15 @@ let createUser = (userData) => new Promise(async (resolve, reject) => {
     const sql = "INSERT INTO users SET " +
         "name = " + db.escape(userData.name) +
         ", surname = " + db.escape(userData.surname) +
-        ", hero = " + db.escape(userData.hero) +
+        ", comfortCharacter = " + db.escape(userData.hero) +
         ", email = " + db.escape(userData.email) +
         ", info = " + db.escape(userData.info) +
+        ", role = " + db.escape("user") +
         ", password = " + db.escape(userData.password);
 
     db.query(sql, function (err, result, fields) {
         if (err) {
+            console.log(err);
             reject(err);
         }
         const userId = result.insertId;
@@ -90,31 +92,9 @@ let deleteUser = (id) => new Promise((resolve, reject) => {
     })
 });
 
-const members = [
-    {
-        name: "Noëlle Jamöck",
-        age: 20,
-        codingExperience: "1 year",
-        catchphrase: "'Eh, she's just being dramatic.'",
-    },
-    {
-        name: "Caroline Mandl",
-        age: 20,
-        codingExperience: "4 years",
-        catchphrase: "'CMD called me a general failure. Ouch.'",
-    },
-    {
-        name: "Michaela Topalovic",
-        age: 20,
-        codingExperience: "1 semester",
-        catchphrase: "'As creative as this quote.'",
-    }
-]
-
 module.exports = {
     getUsers,
     getUser,
-    members,
     updateUser,
     createUser,
     deleteUser

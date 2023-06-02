@@ -16,7 +16,6 @@ async function uploadProfilePic(req, res, next) {
 
             await pictureModel.updateUserProfilePic(uID, picture);
 
-
             res.redirect(`/users/${uID}`);
         }
     } catch (err) {

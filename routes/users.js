@@ -5,10 +5,8 @@ const userController = require('../controllers/userController');
 const pictureController = require('../controllers/pictureController');
 const db = require('../services/database').config;
 const authenticationService = require('../services/authentication');
-router.get('/', userController.getUsers);
 
-router.get('/register', userController.addUser);
-router.post('/register', userController.createUser);
+router.get('/', userController.getUsers);
 
 router.use(authenticationService.authenticateJWT);
 

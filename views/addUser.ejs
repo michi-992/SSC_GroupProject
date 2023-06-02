@@ -6,17 +6,26 @@
     <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
-<h1>Register</h1>
+<div id="topNav">
+    <a href="/">home</a>
+    <a href="/users">users</a>
+    <a href="register">register</a>
+    <a href="/login">login</a>
+    <a href="/logout">logout</a>
+    <a href="/chat">chat</a>
+</div>
 
-<div id="userCard">
-    <form action="/users/register" method="POST" class ="displayCard">
+<div class="image-container">
+<div id="content">
+    <h1>Register</h1>
+    <form action="/register" method="POST">
         <label for="name" class="label">First Name:</label><br>
         <input type="text" id="name" name="name"><br>
 
         <label for="surname" class="label">Surname:</label><br>
         <input type="text" id="surname" name="surname"><br>
 
-        <label for="hero" class="label">Hero:</label><br>
+        <label for="comfortCharacter" class="label">Comfort Character:</label><br>
         <input type="text" id="hero" name="hero"><br>
 
         <label for="email" class="label">EMail:</label><br>
@@ -30,6 +39,7 @@
 
         <button type="submit">Register</button>
     </form>
+</div>
 </div>
 
 </body>

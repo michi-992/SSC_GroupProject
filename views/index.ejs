@@ -4,45 +4,22 @@
     <title>Welcome to This Page</title>
 </head>
 <body>
-<h1>This is Group 11!</h1>
-
-<table id="userCards">
-    <tr>
-        <% for (let i = 0; i < members.length; i++) { %>
-            <td class="displayCard">
-                <p class="label">name</p>
-                <p class="userInformation"> <%= members[i].name %> </p>
-                <p class="label">age</p>
-                <p class="userInformation"> <%= members[i].age %> </p>
-                <p class="label">coding experience</p>
-                <p class="userInformation"> <%= members[i].codingExperience %> </p>
-                <p id="catchphrase"> <%= members[i].catchphrase %> </p>
-            </td>
-        <% } %>
-    </tr>
-</table>
-
-
-
-<div>
-    go to <a href="/users">users</a>
+<div id="topNav">
+    <a href="/">home</a>
+    <a href="/users">users</a>
+    <a href="/register">register</a>
+    <a href="/login">login</a>
+    <a href="/logout">logout</a>
+    <a href="/chat">chat</a>
 </div>
-<div>
-    go to <a href="/users/register">register</a>
-</div>
-<div>
-    go to <a href="/login">login</a>
-</div>
-<div>
-    go to <a href="/logout">logout</a>
-</div>
+<div class="image-container">
 
-<div id="topicDescription">
-    <h2>Our Topic</h2>
-    <p>pending...</p>
+<div id="content">
+    <h1>Welcome</h1>
+    <h2>Our Topic is Avatar The Last Airbender...</h2>
 </div>
 </div>
 
-
+</div>
 </body>
 </html>
