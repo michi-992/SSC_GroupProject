@@ -45,7 +45,6 @@ async function updateUser(req, res, next) {
         res.render('user', {user, pictureUUID});
     } catch (error) {
         res.status(404)
-        next(err);
     }
 }
 

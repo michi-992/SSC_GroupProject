@@ -10,7 +10,6 @@ let getProfilePicByUserId = (uID) => new Promise((resolve, reject) => {
         if (results.length === 0) {
             resolve(null);
         } else {
-            console.log(results);
             resolve(results.map(result => result.pictureUUID));
         }
     })
@@ -20,13 +19,13 @@ const updateUserProfilePic = async (uID, picture) => {
     try {
         const pictureUUID = uuid.v4();
         const pictureName = `${pictureUUID}.jpg`;
-        const filename = `./public/uploads/${pictureName}`;
+        const filepath = `./public/uploads/${pictureName}`;
         await db.query('SELECT pictureUUID FROM user_pictures WHERE uID = ?', [uID], async function (error, results, fields) {
             if (results && results.length > 0) {
                 const existingPictureUUID = results[0].pictureUUID;
                 if (existingPictureUUID !== pictureUUID) {
-                    const existingFilename = `./public/uploads/${existingPictureUUID}.jpg`;
-                    fs.unlinkSync(existingFilename);
+                    const existingFilepath = `./public/uploads/${existingPictureUUID}.jpg`;
+                    fs.unlinkSync(existingFilepath);
                     await db.query('UPDATE user_pictures SET pictureUUID = ? WHERE uID = ?', [pictureUUID, uID]);
                 } else {
                     console.log("picture already exists");
@@ -37,7 +36,7 @@ const updateUserProfilePic = async (uID, picture) => {
                 await db.query(insertSql, [uID, pictureUUID]);
             }
         })
-        await picture.mv(filename);
+        await picture.mv(filepath);
     } catch (err) {
         throw err;
     }

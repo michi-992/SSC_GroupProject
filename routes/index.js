@@ -1,19 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const { members } = require('../models/userModel');
 const authenticationService = require('../services/authentication');
 const userModel = require('../models/userModel')
-const authService = require("../services/authentication");
-
-router.get('/', (req, res) => {
-    res.render('index', {title: 'Express', members: members});
-});
+const userController = require('../controllers/userController')
 
 
-router.post('/', (req, res) => {
+router.route('/')
+    .get((req, res) => {
+        res.render('index', );
+    })
+    .post((req, res) => {
     console.log(req.body);
     res.send('received a POST request');
 });
+
+router.get('/register', userController.addUser);
+router.post('/register', userController.createUser);
+
 
 router.route('/login')
     .get((req, res, next) => {
@@ -29,7 +32,7 @@ router.route('/login')
             })
     });
 
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res, next) => {
     res.cookie('accessToken', '', {maxAge: 0});
     res.redirect('/')
 })
@@ -49,10 +52,8 @@ router.get('/cookies', (req, res, next) => {
 
 })
 
-// router.get('/chat', (req, res) => {
-//     res.render('chat')
-// })
-router.get('/chat', authService.getUserThroughToken, (req, res) => {
+router.get('/chat', authenticationService.getUserThroughToken, (req, res, next) => {
     res.render('chat', { username: req.user.username });
 });
+
 module.exports = router;
