@@ -12,7 +12,6 @@ async function getUsers(req, res, next) {
     }
 }
 
-
 async function getUser(req, res, next) {
     try {
         const user = await userModel.getUser(req.params.id);

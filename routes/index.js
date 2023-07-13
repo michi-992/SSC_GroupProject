@@ -3,6 +3,7 @@ const router = express.Router();
 const authenticationService = require('../services/authentication');
 const userModel = require('../models/userModel')
 const userController = require('../controllers/userController')
+const characterController = require('../controllers/characterController')
 
 
 router.route('/')
@@ -55,5 +56,9 @@ router.get('/cookies', (req, res, next) => {
 router.get('/chat', authenticationService.getUserThroughToken, (req, res, next) => {
     res.render('chat', { username: req.user.username });
 });
+
+router.get('/characters', characterController.getCharacters);
+router.get('/characters/character/:id', characterController.getCharacter);
+router.post('/characters/create-comment', characterController.createComment);
 
 module.exports = router;

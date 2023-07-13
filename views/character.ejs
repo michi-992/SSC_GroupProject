@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title><%= character.name %></title>
+</head>
+
+<body>
+<div id="topNav">
+    <a href="/">home</a>
+    <a href="/users">users</a>
+    <a href="/characters">characters</a>
+    <a href="register">register</a>
+    <a href="/login">login</a>
+    <a href="/logout">logout</a>
+    <a href="/chat">chat</a>
+</div>
+
+<div class="comments">
+    <h2><%= character.name%></h2>
+        <p><%= character.longDescription %></p>
+</div>
+
+<h2>Comments</h2>
+<%# form for creating comment%>
+<h3>Create a New Comment</h3>
+<form action="/characters/create-comment" method="POST">
+    <input type="hidden" name="characterId" value="<%= character.id %>">
+    <textarea name="content" placeholder="Enter your comment" required></textarea>
+    <button type="submit">Add Comment</button>
+</form>
+
+<%# lists all the comments, newest first%>
+<div id="comments">
+    <% comments.forEach(comment => { %>
+        <div id="commentCards">
+            <div class="comment">
+                <h6><%= comment.user_name %>, created at <%= comment.created_at %></h6>
+                <p><%= comment.content %></p>
+            </div>
+        </div>
+    <% }); %>
+</div>
+</body>
+</html>

@@ -12,6 +12,7 @@
 <div id="topNav">
     <a href="/">home</a>
     <a href="/users">users</a>
+    <a href="/characters">characters</a>
     <a href="/register">register</a>
     <a href="/login">login</a>
     <a href="/logout">logout</a>
@@ -43,14 +44,14 @@
     const canvas = document.getElementById('mapCanvas');
     const ctx = canvas.getContext('2d');
     const roomSpots = [
-        { name: 'fire', loc_x: 200, loc_y: 250 },
-        { name: 'air', loc_x: 590, loc_y: 300 },
+        { name: 'fire', loc_x: 100, loc_y: 240 },
+        { name: 'air', loc_x: 720, loc_y: 300 },
         { name: 'water', loc_x: 390, loc_y: 410 },
-        { name: 'earth', loc_x: 520, loc_y: 170 },
-        { name: 'cabbage', loc_x: 390, loc_y: 90 }
+        { name: 'earth', loc_x: 592, loc_y: 158 },
+        { name: 'cabbage', loc_x: 330, loc_y: 140 }
     ];
 
-    const map = new Image(800, 500);
+    const map = new Image(570, 321);
     map.src = '/pictures/map.jpg';
 
     canvas.addEventListener('mousemove', handleMousemove);
@@ -63,22 +64,25 @@
             const { loc_x, loc_y, name } = room;
 
             ctx.beginPath();
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#ffffff';
+
             ctx.arc(loc_x, loc_y, 10, 0, 2 * Math.PI);
             ctx.lineWidth = 2;
             ctx.strokeStyle = '#2d2d2d';
 
             switch (name) {
                 case 'fire':
-                    ctx.fillStyle = '#ff2525'; // Dark red
+                    ctx.fillStyle = '#ff2525'; // Red
                     break;
                 case 'air':
-                    ctx.fillStyle = '#d9c1c1'; // Gray
+                    ctx.fillStyle = '#ffffff'; // Gray
                     break;
                 case 'water':
-                    ctx.fillStyle = '#1818da'; // Dark blue
+                    ctx.fillStyle = '#1818da'; // Blue
                     break;
                 case 'earth':
-                    ctx.fillStyle = '#d5671b'; // Brown
+                    ctx.fillStyle = '#d97635'; // Brown
                     break;
                 case 'cabbage':
                     ctx.fillStyle = '#14c92c'; // Green
@@ -162,7 +166,6 @@
             };
             ws.send(JSON.stringify(message));
         } else {
-            // Show an alert or display a message indicating to join a room first
             alert('Please join a room before sending a message.');
         }
     }

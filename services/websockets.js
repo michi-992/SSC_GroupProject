@@ -10,7 +10,7 @@ wss.on('connection', ws => {
         if (msg.room) {websocketSendToAll(JSON.stringify(msg))}
     })
     // ws.send('Hello! Hello this is the welcome message from the server!!')
-    ws.send(JSON.stringify({message: 'Hello! Message From Server!!', username: 'Server'}));
+    ws.send(JSON.stringify({message: 'Hello! Message from Server!', username: 'Server'}));
 })
 
 function websocketSendToAll(text) {

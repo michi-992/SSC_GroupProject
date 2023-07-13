@@ -8,7 +8,7 @@ async function authenticateUser({username, password}, users, res) {
     });
 
     if (user && await checkPassword(password, user.password)) {
-        const accessToken = jwt.sign({id: user.id, username: user.name, expiresIn: '2h' }, ACCESS_TOKEN_SECRET);
+        let accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
         res.cookie('accessToken', accessToken);
         res.redirect('/users/' + user.id);
     } else {
@@ -20,7 +20,7 @@ function authenticateJWT(req, res, next) {
     const token = req.cookies['accessToken'];
 
     if (token) {
-        jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) =>{
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
             if(err) {
                 return res.sendStatus(403);
             }
