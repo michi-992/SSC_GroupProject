@@ -28,7 +28,7 @@
 <div class="image-container">
 <div id="content">
     <h1>This is user <%= user.id %></h1>
-    <img src="/uploads/<%= pictureUUID ? pictureUUID + '.jpg' : '' %>" alt="User image" id="profilePic"/>
+
     <div>
         <% Object.entries(user).forEach(([key, value]) => { %>
         <% if (key === 'password') { return }%>
@@ -40,7 +40,6 @@
 
             <button onClick="deleteRequest()">Delete User</button>
 
-            <a href="/users/<%= user.id %>/picture/upload">Set profile picture</a>
     </div>
 
 </div>

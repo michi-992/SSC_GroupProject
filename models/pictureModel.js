@@ -1,3 +1,5 @@
+/*
+
 const fs = require("fs");
 const uuid = require("uuid");
 const db = require('../services/database.js').config;
@@ -46,3 +48,5 @@ module.exports = {
     getProfilePicByUserId,
     updateUserProfilePic,
 };
+
+ */

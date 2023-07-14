@@ -1,3 +1,5 @@
+/*
+
 const pictureModel = require('../models/pictureModel');
 
 async function getProfilePicByUserId(uID) {
@@ -27,3 +29,5 @@ module.exports = {
     uploadProfilePic,
     getProfilePicByUserId
 };
+
+ */

@@ -60,5 +60,6 @@ router.get('/chat', authenticationService.getUserThroughToken, (req, res, next) 
 router.get('/characters', characterController.getCharacters);
 router.get('/characters/character/:id', characterController.getCharacter);
 router.post('/characters/create-comment', characterController.createComment);
+router.post('/characters/delete-comment', characterController.deleteComment);
 
 module.exports = router;

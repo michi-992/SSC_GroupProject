@@ -19,7 +19,7 @@
 
 <div class="comments">
     <h2><%= character.name%></h2>
-        <p><%= character.longDescription %></p>
+    <p><%= character.longDescription %></p>
 </div>
 
 <h2>Comments</h2>
@@ -31,13 +31,19 @@
     <button type="submit">Add Comment</button>
 </form>
 
-<%# lists all the comments, newest first%>
 <div id="comments">
     <% comments.forEach(comment => { %>
         <div id="commentCards">
             <div class="comment">
-                <h6><%= comment.user_name %>, created at <%= comment.created_at %></h6>
+                <h6>
+                    <a href="/users/<%= comment.user_id %>"><%= comment.user_name %></a>,
+                    created at <%= comment.created_at %>
+                </h6>
                 <p><%= comment.content %></p>
+                <form action="/characters/delete-comment" method="POST" style="display: inline;">
+                    <input type="hidden" name="commentId" value="<%= comment.id %>">
+                    <button type="submit">Delete</button>
+                </form>
             </div>
         </div>
     <% }); %>
