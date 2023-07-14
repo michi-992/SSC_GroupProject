@@ -40,60 +40,82 @@
 >
 <%- include('navComponent') %>
 
+<div class="profile">
 
-<div class="image-container">
-    <div id="content">
-        <h1>This is user <%= user.id %></h1>
+
+    <div class="flexCol">
         <img src="/uploads/<%= profilePic ? profilePic + '.jpg' : 'defaultProfile.jpg' %>"
-             alt="User image" id="profilePic"/>
-        <div>
+             alt="Profile Picture" id="profilePic">
+        <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
+            <button onclick="window.location.href='/users/<%= user.id %>/picture/upload'" class="buttonStyled">Set
+                profile picture
+            </button>
+        <% } %>
+    </div>
+
+
+    <div class="flexCol">
+        <h2>This is user <%= user.id %></h2>
+        <div class="gridContainer">
             <% Object.entries(user).forEach(([key, value]) => { %>
                 <% if (key === 'id' || key === 'password' || key === 'profilePicture' || key === 'role') {
                     return;
                 } else if (key === 'nation') { %>
                     <% if(value) { %>
-                        <p class="label"><%= key %> </p>
-                        <p class="userInformation"><%= value %></p>
+                        <div class="gridItem">
+                            <p class="label"><%= key %> </p>
+                            <p class="userInformation"><%= value %></p>
 
-                        <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
-                            <button onClick="deleteNation()">Delete Nation</button>
-                        <% } %>
-
+                            <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
+                                <button onClick="deleteNation()" class="buttonStyled">Delete Nation</button>
+                            <% } %>
+                        </div>
                     <% } else { %>
-                        <p class="label"><%= key %> </p>
-                        <p class="userInformation">nationless</p>
-                        <% if (currentUser && currentUser.id === user.id) { %>
-                            <button onclick="window.location.href='/quiz'">Find out your nation!</button>
-                        <% } %>
+                        <div class="gridItem">
+                            <p class="label"><%= key %> </p>
+                            <p class="userInformation">nationless</p>
+                            <% if (currentUser && currentUser.id === user.id) { %>
+                                <button onclick="window.location.href='/quiz'" class="buttonStyled">Find out your nation!</button>
+                            <% } %>
+                        </div>
                     <% } %>
-
                 <% } else { %>
+                    <div class="gridItem">
                         <p class="label"><%= key %> </p>
                         <p class="userInformation"><%= value %></p>
+                    </div>
                 <% } %>
             <% }) %>
-
-            <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
-                <button onclick="window.location.href='/users/<%= user.id %>/edit'">Edit user</button>
-                <button onClick="deleteRequest()">Delete User</button>
-                <button onclick="window.location.href='/users/<%= user.id %>/picture/upload'">Set profile picture</button>
-            <% } %>
         </div>
 
-        <div>
-            <% teams.forEach(team => { %>
-                <p><%= team.teamName %></p>
-                <% for (let i = 1; i < 5; i++) { %>
-                    <% if(team['member_' + i]) { %>
-                        <img src="/pictures/<%= team['member_' + i] ? team['member_' + i] + '.png' : '' %>"
-                             style="width: 200px">
-                    <% } %>
-                <% } %>
-                <button onclick="deleteTeam(<%= team.id %>)">Delete <%= team.teamName %></button>
-            <% }) %>
 
+        <div style="display: flex; flex-direction: row; margin: auto">
+            <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
+                <button onclick="window.location.href='/users/<%= user.id %>/edit'" class="buttonStyled">Edit user
+                </button>
+                <button onClick="deleteRequest()" class="buttonStyled">Delete User</button>
+            <% } %>
         </div>
     </div>
 </div>
+
+    <div class="profile">
+        <h1>Teams</h1>
+        <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
+        <button onclick="window.location.href='./<%= currentUser.id %>/teamBuilding'" class="buttonStyled">Build a team</button>
+            <% } %>
+        <% teams.forEach(team => { %>
+            <p><%= team.teamName %></p>
+            <% for (let i = 1; i < 5; i++) { %>
+                <% if(team['member_' + i]) { %>
+                    <img src="/pictures/<%= team['member_' + i] ? team['member_' + i] + '.png' : '' %>"
+                         style="width: 200px">
+                <% } %>
+            <% } %>
+            <button onclick="deleteTeam(<%= team.id %>)">Delete <%= team.teamName %></button>
+        <% }) %>
+
+    </div>
+
 </body>
 </html>

@@ -58,15 +58,15 @@
     <label for="teamName">Team name</label>
     <input type="text" name="teamName" id="teamName" required>
     <div style="display: flex; flex-direction: row; justify-content: center">
-        <div>
+        <div class="flexCol">
             <input type="text" name="member_1" id="member_1" hidden>
             <img src="" style="height: 150px; width: 112px" id="chosenPic0">
-            <button type="button" id="removeButton0" onclick="removeItem('chosenPic0', 'member_1', this)" hidden>
+            <button type="button" id="removeButton0" onclick="removeItem('chosenPic0', 'member_1', this)" hidden style="position: relative; bottom: 0;">
                 Remove
             </button>
         </div>
 
-        <div>
+        <div class="flexCol">
             <input type="text" name="member_2" id="member_2" hidden>
             <img src="" style="height: 150px; width: 112px" id="chosenPic1">
             <button type="button" id="removeButton1" onclick="removeItem('chosenPic1', 'member_2', this)" hidden>
@@ -75,7 +75,7 @@
         </div>
 
 
-        <div>
+        <div class="flexCol">
             <input type="text" name="member_3" id="member_3" hidden>
             <img src="" style="height: 150px; width: 112px" id="chosenPic2">
             <button type="button" id="removeButton2" onclick="removeItem('chosenPic2', 'member_3', this)" hidden>
@@ -83,7 +83,7 @@
             </button>
         </div>
 
-        <div>
+        <div class="flexCol">
             <input type="text" name="member_4" id="member_4" hidden>
             <img src="" style="height: 150px; width: 112px" id="chosenPic3">
             <button type="button" id="removeButton3" onclick="removeItem('chosenPic3', 'member_4', this)" hidden>
@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    <button type="submit" id="submitBtn" disabled>Create Team</button>
+    <button type="submit" id="submitBtn" disabled class="buttonStyled">Create Team</button>
 </form>
 
 <% characters.forEach(character => { %>

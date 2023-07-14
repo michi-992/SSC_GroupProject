@@ -6,8 +6,6 @@
 <body>
 <%- include('navComponent') %>
 
-<div class="image-container">
-<div id="content">
     <h1>Register</h1>
     <form action="/register" method="POST">
         <% if(message) { %>
@@ -31,10 +29,8 @@
         <label for="password" class="label">password:</label><br>
         <input type="text" id="password" name="password"><br>
 
-        <button type="submit">Register</button>
+        <button type="submit" class="buttonStyled">Register</button>
     </form>
-</div>
-</div>
 
 </body>
 </html>

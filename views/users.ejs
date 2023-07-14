@@ -5,18 +5,15 @@
 <body>
 <%- include('navComponent') %>
 
-<div class="image-container">
-    <div id="content">
-        <h1>These are all <%= users.length %> Users</h1>
-        <div>
-            <% for (let i = 0; i < users.length; i++) { %>
-                <div style="padding: 10px;">
-                    <a href="/users/<%= users[i].id %>"><%= users[i].id %> - <%= users[i].name %> - <%= users[i].nation%></a>
-                </div>
-            <% } %>
+<h1>These are all <%= users.length %> Users</h1>
+<div class="userCards">
+    <% for (let i = 0; i < users.length; i++) { %>
+        <div class="userCard">
+            <a href="/users/<%= users[i].id %>"><%= users[i].username %> <%= users[i].nation ? ' (' + users[i].nation + ') ' : '' %></a>
         </div>
-    </div>
+    <% } %>
 </div>
+
 
 </body>
 </html>

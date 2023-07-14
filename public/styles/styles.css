@@ -16,6 +16,7 @@ html {
     padding: 20px;
     margin: 0;
     position: sticky;
+    z-index: 100;
     top: 0;
 }
 
@@ -64,11 +65,34 @@ html {
 }
 #logo >a {
     color: white;
-    font-size: 20px;
+    margin-left: 15px;
+    margin-top: 6px;
+    font-size: 30px;
 }
 
-#comment {
-    padding: 20px;
+.comment {
+    width: 500px;
+    margin: 10px auto;
+    padding: 5px 20px;
+    background-color: #48321f;
+    color: white;
+    border-radius: 20px;
+}
+
+.commentMeta {
+    background-color: tan;
+    border-radius: 5px;
+    color: black;
+    font-size: 16px;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.comment-content {
+    text-align: left;
+}
+
+.button-right {
 
 }
 
@@ -79,9 +103,98 @@ h1 {
 .container {
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto 50px auto;
     max-width: 1100px;
-    margin-bottom: 50px;
+}
+
+#atla_characters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.characterCard {
+    background-color: #48321f;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.characterCard h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.shortDescription {
+    font-size: 16px;
+    background-color: #d2b48c;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px auto 20px auto;
+}
+
+.characterCard a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #333;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.characterCard a:hover {
+    color: black;
+}
+
+#goBackBtnCon {
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+}
+
+#goBackBtn {
+    background-color: #48321f;
+    color: #fff;
+    margin-top: 20px;
+    margin-left: 0;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    top: 60px;
+    left: 0;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+#goBackBtn:hover {
+    background-color: #654321;
+
+}
+
+.longDescription {
+    background-color: #d2b48c;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px auto 20px auto;
+    text-align: justify;
+    max-width: 800px;
+}
+
+form {
+    background-color: tan;
+    padding: 8px 20px;
+    width: fit-content;
+    border-radius: 10px;
+    margin: auto;
+    border-color: #48321f;
 }
 
 #explanationText, .explanationText {
@@ -92,7 +205,6 @@ h1 {
     margin: 10px auto 20px auto;
     text-align: justify;
     max-width: 1100px;
-
 }
 
 .canvas-container {
@@ -154,7 +266,6 @@ textarea {
     border: none;
     border-radius: 50px;
     font-size: 16px;
-    font-weight: bold;
     text-transform: uppercase;
     text-decoration: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -180,16 +291,35 @@ h1 {
     margin: 12px;
 }
 
-#userCards {
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 40px;
+.userCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 
-#userCard {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.userCard {
+    background-color: tan;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.userCard:hover {
+    background-color: #8f674f;
+}
+
+
+.userCard a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.userCard a:hover {
+    text-decoration: underline;
+    color: white;
 }
 
 
@@ -256,7 +386,7 @@ input {
 }
 
 #profilePic {
-    width: 50%;
+    width: 200px;
 }
 
 .question {
@@ -265,6 +395,27 @@ input {
 
 .question.visible {
     display: block;
+}
+
+.profile {
+    background-color: tan;
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px 30px;
+    gap: 20px;
+    border-radius: 20px;
+}
+
+.flexCol {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+}
+
+.gridItem {
+    display: inline;
+    width: 100px;
 }
 
 

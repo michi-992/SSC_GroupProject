@@ -6,10 +6,8 @@
 <body>
 <%- include('navComponent') %>
 
-<div class="image-container">
-    <div id="content">
         <h1>Edit your Profile</h1>
-        <form action="/users/<%= user.id %>/edit" method="post">
+        <form action="/users/<%= user.id %>/edit" method="post" style="width: 300px">
             <% if(message) { %>
                 <p><%= message %></p>
             <% } %>
@@ -23,10 +21,9 @@
                     <input type="text" name="<%= key %>" value="<%= user[key] %>"/><br>
             <% }}) %>
 
-            <button type="submit" value="save changes">Save Changes</button>
+            <button type="submit" value="save changes" class="buttonStyled">Save Changes</button>
 
         </form>
-    </div>
-</div>
+
 </body>
 </html>

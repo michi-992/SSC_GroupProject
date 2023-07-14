@@ -18,12 +18,17 @@
 <body>
 <%- include('navComponent') %>
 
-
+<div id="goBackBtnCon">
+    <button onclick="window.history.back()" id="goBackBtn">Go back</button>
+</div>
 <h1><%= character.atlaCharacter %></h1>
-<p class="explanationText"><%= character.longDescription %></p>
+<p class="longDescription"><%= character.longDescription %></p>
+
+
+<h1>Comments</h1>
 
 <% if (currentUser.id) { %>
-    <h3>Create a New Comment</h3>
+    <h2>Create a New Comment</h2>
     <form action="/characters/create-comment" method="POST">
         <input type="hidden" name="characterId" value="<%= character.id %>">
         <textarea name="content" placeholder="Enter your comment here" required></textarea>
@@ -32,20 +37,20 @@
     </form>
 <% } %>
 
-<h2>Comments</h2>
 <div id="comments">
     <% if(comments.length > 0) { %>
         <% comments.forEach(comment => { %>
             <div id="commentCards">
                 <div class="comment">
-                    <p>
+                    <p class="commentMeta">
                         <a href="/users/<%= comment.user_id %>"><%= comment.username %></a>,
                         created at <%= comment.created_at %>
                     </p>
-                    <p><%= comment.content %></p>
+                    <p class="comment-content"><%= comment.content %></p>
 
                     <% if(currentUser && (currentUser.role === 'Administrator' || currentUser.id === comment.user_id)) { %>
-                        <button onclick="deleteComment(<%= comment.id %>)">Delete</button>
+                        <button onclick="deleteComment(<%= comment.id %>)" class="buttonStyled button-right">Delete
+                        </button>
                     <% } %>
                 </div>
             </div>
