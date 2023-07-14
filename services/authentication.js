@@ -4,57 +4,77 @@ const bcrypt = require('bcrypt');
 
 async function authenticateUser({username, password}, users, res) {
     const user = users.find(u => {
-        return u.name === username;
+        return u.username === username;
     });
 
-    if (user && await checkPassword(password, user.password)) {
-        let accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
-        res.cookie('accessToken', accessToken);
-        res.redirect('/users/' + user.id);
+    if (user) {
+        if (await checkPassword(password, user.password)) {
+            const accessToken = jwt.sign({
+                    id: user.id,
+                    username: user.username,
+                    role: user.role
+                }, ACCESS_TOKEN_SECRET, {
+                    expiresIn: '2h'
+                }
+            );
+            res.cookie('accessToken', accessToken);
+            res.redirect('/users/' + user.id);
+        } else {
+            res.render('login', {message: 'Password incorrect'});
+        }
     } else {
-        res.send('Username or password incorrect');
+        res.render('login', {message: 'No user found.'});
     }
 }
 
 function authenticateJWT(req, res, next) {
     const token = req.cookies['accessToken'];
-
-    if (token) {
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) =>{
-            if(err) {
-                return res.sendStatus(403);
-            }
-            req.user = user;
-            const currentUser = req.user;
-            req.user.role = user.role;
-            next();
-        })
-    } else {
-        res.sendStatus(401);
-    }
-}
-
-function getUserThroughToken(req, res, next) {
-    const token = req.cookies['accessToken'];
+    req.currentUser = {username: 'Guest'};
+    const userID = parseInt(req.params.id);
 
     if (token) {
         jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
             if (err) {
-                console.log(err);
-                return res.sendStatus(403);
+                res.redirect('/login');
             }
-            req.user = user;
+            req.currentUser = user;
+            console.log('userId ' + userID)
+            console.log('current id ' + req.currentUser.id)
+            if(user.role === 'Administrator') {
+                next();
+            } else {
+                if (userID !== req.currentUser.id) {
+                    res.render('error');
+                } else {
+                    next();
+                }
+            }
+        })
+    } else {
+        req.currentUser = {username: 'Guest'};
+    }
+}
+
+function checkForUser(req, res, next) {
+    const token = req.cookies['accessToken'];
+    req.currentUser = {username: 'Guest'};
+
+    if (token) {
+        jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
+            if (err) {
+                req.currentUser = {username: 'Guest'};
+            }
+            req.currentUser = user
             next();
         });
     } else {
-        // If no token is present, set the username to "Guest"
-        req.user = { username: 'Guest' };
+        req.currentUser = {username: 'Guest'};
         next();
     }
 }
 
 
-async function checkPassword(password, hash){
+async function checkPassword(password, hash) {
     let pw = await bcrypt.compare(password, hash)
     return pw;
 }
@@ -62,5 +82,5 @@ async function checkPassword(password, hash){
 module.exports = {
     authenticateUser,
     authenticateJWT,
-    getUserThroughToken
+    checkForUser
 }

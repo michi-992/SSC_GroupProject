@@ -1,26 +1,51 @@
 <html>
 <head>
-    <link rel="stylesheet" href="/styles/styles.css">
-    <title>Welcome to This Page</title>
+    <%- include('htmlHead') %>
 </head>
 <body>
-<div id="topNav">
-    <a href="/">home</a>
-    <a href="/users">users</a>
-    <a href="/characters">characters</a>
-    <a href="/register">register</a>
-    <a href="/login">login</a>
-    <a href="/logout">logout</a>
-    <a href="/chat">chat</a>
-</div>
-<div class="image-container">
+<%- include('navComponent') %>
 
-<div id="content">
-    <h1>Welcome</h1>
-    <h2>Our Topic is Avatar The Last Airbender...</h2>
-</div>
+<h1>Welcome<%= currentUser.username ? ', ' + currentUser.username : '' %></h1>
+<h2>Dive into the world of Avatar the last Airbender with Us</h2>
+<img src="/pictures/map.jpg" alt="" width="600px">
+<div id="explanationText">
+    Welcome to our thrilling website, a haven for Avatar: The Last Airbender enthusiasts! Here, you can fully immerse
+    yourself in the captivating world of ATLA and connect with a vibrant community of fans. Our website offers a range
+    of exciting features designed to enhance your experience and foster a sense of belonging.
+    <br><br>
+
+    To get started, simply register and log in to unlock a realm of possibilities. Once logged in, you can view and
+    customize your profile, adding a profile picture to showcase your love for the Avatar universe. Feel free to edit
+    and delete your profile as you please, tailoring your online presence to reflect your unique personality.
+    <br><br>
+
+    But the fun doesn't stop there! Our website allows you to assemble your dream team of up to five beloved ATLA
+    characters, creating a lineup that embodies your favorite elements and personalities. Should you ever wish to part
+    ways with a team you've created, fear not! Our website allows you to delete your own teams, granting you the freedom
+    to evolve and experiment with new combinations.
+    <br><br>
+
+    Dive deep into character profiles, discovering intriguing backstories and fascinating traits that make the Avatar
+    universe so captivating. As a logged-in user, you have the power to leave your mark by commenting on character
+    profiles, sharing your insights and engaging in spirited discussions with fellow fans. Embrace the opportunity to
+    connect with like-minded individuals, as you collectively explore the nuances of the Avatar universe.
+    <br><br>
+
+    Prepare to join an immersive chat experience where ATLA-themed rooms await your arrival. Engage in real-time
+    conversations, exchanging thoughts, theories, and memorable moments with other passionate fans. It's a chance to
+    forge lasting friendships and create unforgettable memories within the virtual walls of our ATLA-inspired chat
+    rooms.
+    <br><br>
+
+    For an extra touch of excitement, we offer a unique quiz designed to determine which of the four nations you belong
+    to. Based on your quiz results, our website dynamically adjusts its background color, creating a personalized
+    experience that reflects your elemental affinity and deepens your connection to the Avatar universe.
+    <br><br>
+
+    So, embark on this thrilling journey through our website and let the world of Avatar: The Last Airbender come alive
+    before your eyes. Join our community, express your passion, and revel in the company of fellow fans who share your
+    love for this extraordinary universe. The adventure awaits!
 </div>
 
-</div>
 </body>
 </html>

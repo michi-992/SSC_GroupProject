@@ -1,5 +1,4 @@
 const db = require('../services/database.js').config;
-
 function getCharacters() {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM atla_characters', (err, posts) => {
@@ -24,12 +23,10 @@ function getCharacter(id) {
     });
 }
 
-async function createComment(characterID, content) {
+async function createComment(characterID, content, userID, username) {
     return new Promise((resolve, reject) => {
-        const userId = 6;
-        const username = 'Santa';
-        const sql = 'INSERT INTO characters_comments (characterID, user_id, user_name, content, created_at) VALUES (?, ?, ?, ?, NOW())';
-        db.query(sql, [characterID, userId, username, content], (err, result) => {
+        const sql = 'INSERT INTO characters_comments (characterID, user_id, username, content, created_at) VALUES (?, ?, ?, ?, NOW())';
+        db.query(sql, [characterID, userID, username, content], (err, result) => {
             if (err) {
                 reject(err);
             } else {
@@ -48,6 +45,7 @@ function getComments(characterID) {
                 if (err) {
                     reject(err);
                 } else {
+                    console.log(comments)
                     resolve(comments);
                 }
             }
@@ -74,4 +72,4 @@ module.exports = {
     createComment,
     getComments,
     deleteComment,
-};
+}

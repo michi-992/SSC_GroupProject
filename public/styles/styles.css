@@ -2,7 +2,12 @@ body {
     text-align: center;
     background-image: url('../uploads/DefaultBackground.png');
     color: #48321f;
-    font-family: Arial;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: 'Architects Daughter', cursive;
 }
 
 #topNav {
@@ -14,10 +19,105 @@ body {
     top: 0;
 }
 
-#topNav a {
+#topNav > a {
     color: white;
-    padding: 0 10px;
+    margin: 0 20px;
     font-size: 20px;
+}
+
+#profileButtons {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+#profileButtons > button {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: beige;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+#profileButtons > button:hover {
+    background-color: #d2b48c;
+}
+
+#logo {
+    position: absolute;
+    display: flex;
+    align-content: start;
+    top: 5px;
+    left: 5px;
+}
+
+#logo img {
+    width: 80px;
+    background-color: #685646;
+    border-radius: 40px;
+    box-shadow: 0 5px 10px black;
+}
+#logo >a {
+    color: white;
+    font-size: 20px;
+}
+
+#comment {
+    padding: 20px;
+
+}
+
+h1 {
+    margin: 50px 50px;
+    font-size: 60px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 1100px;
+    margin-bottom: 50px;
+}
+
+#explanationText, .explanationText {
+    background-color: #d2b48c;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px auto 20px auto;
+    text-align: justify;
+    max-width: 1100px;
+
+}
+
+.canvas-container {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.chat-container {
+    flex: 1;
+}
+
+#mapCanvas {
+    top: 0;
+    left: 0;
+}
+
+#mapContainer {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 20px;
+}
+
+#profileButtons > button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #d2b48c;
 }
 
 .image-container {
@@ -30,7 +130,46 @@ body {
     background-size: cover;
     display: flex;
     justify-content: center;
-    position: relative;
+    /*align-content: center;*/
+}
+
+textarea {
+    border-color: #48321f;
+    min-width: 300px;
+    min-height: 80px;
+}
+
+#comments {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.buttonStyled {
+    display: inline-block;
+    padding: 6px 10px;
+    margin: 10px;
+    background-color: #694c41;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.buttonStyled:hover {
+    background-color: #8f674f;
+    transform: scale(1.05);
+}
+
+.buttonStyled:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #8f674f;
 }
 
 .userDiv {
@@ -52,6 +191,7 @@ h1 {
     flex-direction: row;
     justify-content: center;
 }
+
 
 .displayCard {
     max-width: 500px;
@@ -81,9 +221,9 @@ h1 {
 }
 
 #content {
-margin-top: 60px;
+    margin-top: 60px;
     margin-bottom: 100px;
-    /*overflow-y: scroll;*/
+    overflow-y: scroll;
     width: 80%;
 }
 
@@ -95,20 +235,18 @@ input {
     background-color: yellow;
 }
 
-#messages-container {
+#messages {
+    /* does not scroll work yet*/
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    /*justify-content: flex-end;*/
+    background-color: #48321f;
+    color: white;
     height: 270px;
     width: 600px;
     margin: 15px auto;
     border-radius: 10px;
-    overflow-y: auto;
-    background-color: #48321f;
-    color: white;
-}
-
-#messages {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 10px;
 }
 
 #messages p {
@@ -118,124 +256,15 @@ input {
 }
 
 #profilePic {
-    width:50%;
+    width: 50%;
 }
 
-.container {
-    display: flex;
-    align-items: flex-start;
+.question {
+    display: none;
 }
 
-.canvas-container {
-    flex: 1;
-    margin-right: 20px;
-}
-
-.chat-container {
-    flex: 1;
-}
-
-#mapCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-#mapContainer {
-    width: 100%;
-    height: 500px;
-    margin-bottom: 20px;
+.question.visible {
+    display: block;
 }
 
 
-
-
-
-
-
-
-/* Character Information */
-.characterInformation {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.characterInformation h2 {
-    font-size: 32px;
-    color: #2a4860;
-    margin-top: 0;
-}
-
-.characterInformation p {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 0;
-}
-
-/* Comments Section */
-#comments {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column-reverse;
-}
-
-#commentCards {
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #d6e7f0;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.comment {
-    margin: 5px 0;
-    font-size: 16px;
-}
-
-.comment h6 {
-    margin: 0;
-    font-size: 14px;
-    color: #777;
-}
-
-/* Character Cards */
-#characterCards {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #d6e7f0;
-    border-radius: 10px;
-}
-
-#characters {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #d6e7f0;
-    border-radius: 5px;
-}
-
-.characters {
-    width: 937px;
-    margin: 20px auto;
-    display: flex;
-    justify-content: center;
-}
-
-#atla_characters {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.characterCard {
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-    background-color: #d6e7f0;
-    margin: 20px;
-    padding: 10px;
-    border-radius: 30px;
-    color: #353535;
-}

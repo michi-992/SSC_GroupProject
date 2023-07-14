@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<%- include('htmlHead') %>
+<script>
+    let index = 0;
+
+    function setChoice(characterName, id, picture, button) {
+        const input1 = document.getElementById('member_1');
+        const input2 = document.getElementById('member_2');
+        const input3 = document.getElementById('member_3');
+        const input4 = document.getElementById('member_4');
+
+        const inputs = [input1, input2, input3, input4];
+
+        button.disabled = true;
+
+        if (index < 6) {
+            for (let i = 0; i < 4; i++) {
+                const choice = {
+                    'characterName': characterName,
+                    'characterId': id,
+                    'characterPic': picture,
+                }
+                if (!inputs[i].value) {
+                    inputs[i].value = choice.characterName;
+                    const chosenPicture = 'chosenPic' + i;
+                    const pictureName = document.getElementById(chosenPicture);
+                    pictureName.src = "/pictures/" + choice.characterPic;
+                    document.getElementById('removeButton' + i).hidden = false;
+
+                    index++;
+
+                    if(index > 0) {
+                        document.getElementById('submitBtn').disabled = false;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    function removeItem(itemPic, itemInput, button) {
+        document.getElementById(itemPic).src = '';
+        const character = document.getElementById(itemInput).value;
+        document.getElementById(character).disabled = false;
+        document.getElementById(itemInput).value = '';
+        button.hidden = true;
+        index--;
+        if(index <= 0) {
+            document.getElementById('submitBtn').disabled = true;
+        }
+    }
+</script>
+<body>
+<%- include('navComponent') %>
+<h1>Build your own Team!</h1>
+<form method="POST" action="/users/<%= currentUser.id %>/teamBuilding">
+    <label for="teamName">Team name</label>
+    <input type="text" name="teamName" id="teamName" required>
+    <div style="display: flex; flex-direction: row; justify-content: center">
+        <div>
+            <input type="text" name="member_1" id="member_1" hidden>
+            <img src="" style="height: 150px; width: 112px" id="chosenPic0">
+            <button type="button" id="removeButton0" onclick="removeItem('chosenPic0', 'member_1', this)" hidden>
+                Remove
+            </button>
+        </div>
+
+        <div>
+            <input type="text" name="member_2" id="member_2" hidden>
+            <img src="" style="height: 150px; width: 112px" id="chosenPic1">
+            <button type="button" id="removeButton1" onclick="removeItem('chosenPic1', 'member_2', this)" hidden>
+                Remove
+            </button>
+        </div>
+
+
+        <div>
+            <input type="text" name="member_3" id="member_3" hidden>
+            <img src="" style="height: 150px; width: 112px" id="chosenPic2">
+            <button type="button" id="removeButton2" onclick="removeItem('chosenPic2', 'member_3', this)" hidden>
+                Remove
+            </button>
+        </div>
+
+        <div>
+            <input type="text" name="member_4" id="member_4" hidden>
+            <img src="" style="height: 150px; width: 112px" id="chosenPic3">
+            <button type="button" id="removeButton3" onclick="removeItem('chosenPic3', 'member_4', this)" hidden>
+                Remove
+            </button>
+        </div>
+    </div>
+
+    <button type="submit" id="submitBtn" disabled>Create Team</button>
+</form>
+
+<% characters.forEach(character => { %>
+    <button onclick="setChoice('<%= character.atlaCharacter %>', <%= character.id %>, '<%= character.pictureName %>', this)"
+            id="<%= character.atlaCharacter %>">
+        <img src="/pictures/<%= character.pictureName %>" alt="<%= character.pictureName %>" style="width: 250px">
+    </button>
+<% }) %>
+
+</body>
+</html>

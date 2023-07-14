@@ -1,18 +1,9 @@
 <html>
 <head>
-    <link rel="stylesheet" href="/styles/styles.css">
-    <title>Users</title>
+    <%- include('htmlHead') %>
 </head>
 <body>
-<div id="topNav">
-    <a href="/">home</a>
-    <a href="/users">users</a>
-    <a href="/characters">characters</a>
-    <a href="/register">register</a>
-    <a href="/login">login</a>
-    <a href="/logout">logout</a>
-    <a href="/chat">chat</a>
-</div>
+<%- include('navComponent') %>
 
 <div class="image-container">
     <div id="content">
@@ -20,7 +11,7 @@
         <div>
             <% for (let i = 0; i < users.length; i++) { %>
                 <div style="padding: 10px;">
-                    <a href="/users/<%= users[i].id %>"><%= users[i].id %> - <%= users[i].name %></a>
+                    <a href="/users/<%= users[i].id %>"><%= users[i].id %> - <%= users[i].name %> - <%= users[i].nation%></a>
                 </div>
             <% } %>
         </div>

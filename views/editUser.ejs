@@ -1,35 +1,30 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/styles/styles.css">
-    <title>Edit User</title>
+    <%- include('htmlHead') %>
 </head>
 <body>
-<div id="topNav">
-    <a href="/">home</a>
-    <a href="/users">users</a>
-    <a href="/characters">characters</a>
-    <a href="/register">register</a>
-    <a href="/login">login</a>
-    <a href="/logout">logout</a>
-    <a href="/chat">chat</a>
+<%- include('navComponent') %>
 
-</div>
 <div class="image-container">
     <div id="content">
         <h1>Edit your Profile</h1>
-        <form action="/users/<%= user.id %>" method="post">
+        <form action="/users/<%= user.id %>/edit" method="post">
+            <% if(message) { %>
+                <p><%= message %></p>
+            <% } %>
             <% Object.keys(user).forEach(function (key) { %>
-                    <%= key %>: <input type="text"
-                                       name="<%= key %>"
-                                       value="<%= user[key] %>"/>
+                <% if (key === 'id' || key === 'nation' || key === 'profilePicture' || key === 'role') { return; %>
+                <% } else if (key === 'password') { %>
+                    <label for="password" class="label">Password</label><br>
+                    <input type="text" name="password"/><br>
+                <% } else { %>
+                    <label for="<%= key %>" class="label"><%= key %></label><br>
+                    <input type="text" name="<%= key %>" value="<%= user[key] %>"/><br>
+            <% }}) %>
 
-            <% }) %>
-            <input type="submit" value="submit changes"/>
+            <button type="submit" value="save changes">Save Changes</button>
+
         </form>
     </div>
 </div>

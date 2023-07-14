@@ -1,49 +1,51 @@
 const characterModel = require('../models/characterModel');
+const pictureModel = require("../models/pictureModel");
+const fs = require("fs");
+const userModel = require("../models/userModel");
 
 async function getCharacters(req, res, next) {
     try {
+        const currentUser = req.currentUser;
         const characters = await characterModel.getCharacters();
-        res.render('characters', { characters });
+        res.render('characters', { characters , currentUser});
     } catch (err) {
-        console.error('Error retrieving posts: ', err);
-        res.status(500).send('Internal Server Error');
+        console.log('Error retrieving posts: ', err);
+       next(err);
     }
 }
 
 async function getCharacter(req, res, next) {
-    const characterId = req.params.id;
     try {
+        const characterId = req.params.characterID;
+        const currentUser = req.currentUser;
         const character = await characterModel.getCharacter(characterId);
         const comments = await characterModel.getComments(characterId);
-        res.render('character', { character, comments });
+        res.render('character', { character, comments, currentUser });
     } catch (err) {
-        console.error('Error retrieving post details: ', err);
-        res.status(500).send('Internal Server Error');
+        console.log('Error retrieving post details: ', err);
+        next();
     }
 }
 
 async function createComment(req, res, next) {
     const { characterId, content } = req.body;
-    const userId = 6;
-    const username = 'Santa';
+    const currentUser = req.currentUser;
+    console.log(currentUser);
     try {
-        await characterModel.createComment(characterId, content, userId, username);
+        await characterModel.createComment(characterId, content, currentUser.id, currentUser.username);
         res.redirect(`/characters/character/${characterId}`);
     } catch (err) {
-        console.error('Error creating comment: ', err);
-        res.status(500).send('Internal Server Error');
+        next();
     }
 }
 
 async function deleteComment(req, res, next) {
-    const { commentId } = req.body;
-    try {
-        await characterModel.deleteComment(commentId);
-        res.redirect('back'); // Redirect back to the same page
-    } catch (err) {
-        console.error('Error deleting comment: ', err);
-        res.status(500).send('Internal Server Error');
-    }
+    characterModel.deleteComment(req.params.commentID)
+        .then(() => {
+            res.redirect(`/characters/character/${req.params.characterID}`);
+        }).catch((error) => {
+        next(error);
+    })
 }
 
 module.exports = {
@@ -51,4 +53,4 @@ module.exports = {
     getCharacter,
     createComment,
     deleteComment,
-};
+}
