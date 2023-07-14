@@ -1,23 +1,15 @@
 <html>
 <head>
-    <link rel="stylesheet" href="/styles/styles.css">
-    <title>Welcome to This Page</title>
+    <%- include('htmlHead') %>
 </head>
 <body>
-<div id="topNav">
-    <a href="/">home</a>
-    <a href="/users">users</a>
-    <a href="/register">register</a>
-    <a href="/login">login</a>
-    <a href="/logout">logout</a>
-    <a href="/chat">chat</a>
-</div>
+<%- include('navComponent') %>
 <div class="image-container">
 
-<div id="content">
-    <h1>Welcome</h1>
-    <h2>Our Topic is Avatar The Last Airbender...</h2>
-</div>
+    <div id="content">
+        <h1>WELCOME<%= currentUser.username ? ', ' +  currentUser.username : '' %></h1>
+        <h2>Our Topic is Avatar The Last Airbender...</h2>
+    </div>
 </div>
 
 </div>

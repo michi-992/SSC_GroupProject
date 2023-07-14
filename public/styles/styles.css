@@ -2,7 +2,11 @@ body {
     text-align: center;
     background-image: url('../uploads/DefaultBackground.png');
     color: #48321f;
-    font-family: Arial;
+    padding: 0;
+    margin: 0;
+}
+html {
+    font-family: 'Covered By Your Grace', cursive;
 }
 
 #topNav {
@@ -118,3 +122,13 @@ input {
 #profilePic {
     width:50%;
 }
+
+.question {
+    display: none;
+}
+
+.question.visible {
+    display: block;
+}
+
+

@@ -1,48 +1,96 @@
 <html>
 <head>
-    <link rel="stylesheet" href="/styles/styles.css"/>
-    <title>User</title>
+    <%- include('htmlHead') %>
     <script>
         function deleteRequest() {
             if (confirm('Are you sure you want to delete this user?')) {
-                fetch('/users/<%= user.id %>/delete', {method:'delete'})
-                .then(() => {
-                    location.href="/users";
-                })
+                fetch('/users/<%= user.id %>/delete', {method: 'delete'})
+                    .then(() => {
+                        location.href = "/users";
+                    })
+            }
+        }
+
+        function deleteNation() {
+            if (confirm('Are you sure you want to delete your nation?')) {
+                fetch('/users/<%= user.id %>/nation/delete', {method: 'delete'})
+                    .then(() => {
+                        location.href = "/users/" + <%= user.id %>;
+                    })
+            }
+        }
+
+        function deleteTeam(id) {
+            console.log(`/users/<%= user.id %>/teamBuilding/${id}/delete`);
+            if (confirm('Are you sure you want to delete this team?')) {
+                fetch(`/users/<%= user.id %>/teamBuilding/${id}/delete`, {method: 'delete'})
+                    .then(() => {
+                        location.href = "/users/" + <%= user.id %>;
+                    })
             }
         }
     </script>
 </head>
-<body>
-<div id="topNav">
-    <a href="/">Home</a>
-    <a href="/users">users</a>
-    <a href="/register">register</a>
-    <a href="/login">login</a>
-    <a href="/logout">logout</a>
-    <a href="/chat">chat</a>
-</div>
+<body
+<% if (user.nation) { %>
+    <% const fullString = user.nation %>
+            <% const extractedString = fullString.split(' ')[0] %>
+            style="background-image: url('/uploads/<%= extractedString %>Background.png')"
+        <% } %>
+>
+<%- include('navComponent') %>
 
 
 <div class="image-container">
-<div id="content">
-    <h1>This is user <%= user.id %></h1>
-    <img src="/uploads/<%= pictureUUID ? pictureUUID + '.jpg' : '' %>" alt="User image" id="profilePic"/>
-    <div>
-        <% Object.entries(user).forEach(([key, value]) => { %>
-        <% if (key === 'password') { return }%>
-            <p class="label"><%= key %> </p>
-            <p class="userInformation"><%= value %> </p>
-        <% }) %>
+    <div id="content">
+        <h1>This is user <%= user.id %></h1>
+        <img src="/uploads/<%= user.profilePicture ? user.profilePicture + '.jpg' : 'defaultProfile.jpg' %>"
+             alt="User image" id="profilePic"/>
+        <div>
+            <% Object.entries(user).forEach(([key, value]) => { %>
+                <% if (key === 'password' || key === 'profilePicture') {
+                    return
+                } else if (key === 'nation') { %>
+                    <% if(value) { %>
+                        <p class="label"><%= key %> </p>
+                        <p class="userInformation"><%= value %></p>
 
-            <a href="/users/<%= user.id %>/edit">Edit user</a>
+                        <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
+                            <button onClick="deleteNation()">Delete Nation</button>
+                        <% } else { %>
+                            <p class="userInformation">nationless</p>
+                            <a href="/quiz">Find out your nation!</a>
+                        <% } %>
+                    <% } else { %>
+                        <p class="label"><%= key %> </p>
+                        <p class="userInformation">nationless</p>
+                    <% } %>
 
-            <button onClick="deleteRequest()">Delete User</button>
+                <% } else { %>
+                    <p class="label"><%= key %> </p>
+                    <p class="userInformation"><%= value %></p>
+                <% } %>
+            <% }) %>
 
-            <a href="/users/<%= user.id %>/picture/upload">Set profile picture</a>
+            <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
+                <a href="/users/<%= user.id %>/edit">Edit user</a>
+                <button onClick="deleteRequest()">Delete User</button>
+                <a href="/users/<%= user.id %>/picture/upload">Set profile picture</a>
+            <% } %>
+        </div>
+        <div>
+            <% teams.forEach(team => { %>
+                <p><%= team.teamName %></p>
+                <% for (let i = 1; i < 5; i++) { %>
+                <% if(team['member_' + i]) {%>
+                    <img src="/pictures/<%= team['member_' + i] ? team['member_' + i] + '.png' : '' %>" style="width: 200px">
+                    <% } %>
+                <% } %>
+            <button onclick="deleteTeam(<%= team.id %>)">Delete <%= team.teamName %></button>
+            <% }) %>
+
+        </div>
     </div>
-
-</div>
 </div>
 </body>
 </html>

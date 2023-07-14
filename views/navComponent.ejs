@@ -1,0 +1,14 @@
+<nav id="topNav">
+    <a href="/">home</a>
+    <a href="/users">users</a>
+    <a href="/quiz">quiz</a>
+    <a href="/chat">chat</a>
+
+    <% if(currentUser.id) { %>
+        <a href="/logout">logout</a>
+    <% } else { %>
+        <a href="/register">register</a>
+        <a href="/login">login</a>
+    <% } %>
+
+</nav>
