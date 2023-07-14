@@ -2,23 +2,23 @@
 
 
 How to start the website:
-Install all node modules with npm install and run node app.js in the terminal.
+Install all node modules with _npm install_ and run _node app.js_ in the terminal.
 
-Database connection details:
+## Database connection details:
 
 user: ##########
 
 password: #########
 
 
-Sample regular user:
+### Sample regular user:
 
 username: #########
 
 password: #########
 
 
-Sample admin user:
+### Sample admin user:
 
 username: #########
 
@@ -26,13 +26,13 @@ password: #########
 
 
 
-Description:
+## Description:
 
 Users can register, log in/log out, view profiles, set a profile picture, edit and delete their own profiles, admin users can edit and delete any profile. If a username already exists, users have to choose a different name to register/edit. Users can take a quiz to determine which of the four nations they belong to; according to the results, the profile page will have a different background color.
 Users can also put together a team of up to four ATLA characters. They can also delete their own teams. They can read about different characters from ATLA and, if they are logged in, can leave comments on the characters. There is also a chat where users can join an ATLA-themed room and chat with other users.
 
-Criteria:
-What your submission must be capable of: (60p)
+# Criteria:
+### What your submission must be capable of: (60p)
 
 Users can be: displayed, added, updated & deleted (10p) ✅
 
@@ -53,7 +53,7 @@ Everything works as expected and there are no unhandled errors or blank pages (5
 Project is hosted online (e.g. via UAS Node.js Hosting Service) (10p)
 
 
-Optional Criteria: (55p)
+### Optional Criteria: (55p)
 
 User experience: The project should have a user-friendly interface that is easy to navigate and understand (self-explanatory). Design should be visually appealing, creative, and functional. (5p) ✅
 
@@ -78,6 +78,6 @@ Everything was submitted correctly (no node_modules, easy but detailed enough de
 
 
 
-Not implemented:
+## Not implemented:
 
 JWT passed in the HTTP header and not in cookies (5p) 
