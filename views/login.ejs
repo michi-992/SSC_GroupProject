@@ -1,29 +1,19 @@
 <html>
 <head>
-    <link rel="stylesheet" href="/styles/styles.css">
-    <title>Welcome to This Page</title>
+    <%- include('htmlHead') %>
 </head>
 <body>
-<div id="topNav">
-    <a href="/">home</a>
-    <a href="/users">users</a>
-    <a href="/register">register</a>
-    <a href="/login">login</a>
-    <a href="/logout">logout</a>
-    <a href="/chat">chat</a>
-</div>
+<%- include('navComponent') %>
 
-<div class="image-container">
-    <div id="content">
-        <h1>Login</h1>
-    <form method="POST" action="/login">
-        <label for="username" class="label">Username or Email:</label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="password"class="label">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
-        <button type="submit">Login</button>
-    </form>
-</div>
-</div>
+<h1>Login</h1>
+<form method="POST" action="/login">
+    <%= message %>
+    <label for="username" class="label">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="password" class="label">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <button type="submit" class="buttonStyled">Login</button>
+</form>
+
 </body>
 </html>

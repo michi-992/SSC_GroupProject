@@ -1,0 +1,22 @@
+<nav id="topNav">
+    <div id="logo">
+        <a href="/"><img src="/pictures/logo.png"></a>
+        <a href="/">Elemental</a>
+    </div>
+
+    <a href="/">home</a>
+    <a href="/characters">characters</a>
+    <a href="/users">users</a>
+    <a href="/quiz">quiz</a>
+    <a href="/chat">chat</a>
+
+    <div id="profileButtons">
+        <% if(currentUser.id) { %>
+            <button onclick="window.location.href='/logout'">logout</button>
+            <button onclick="window.location.href='/users/<%= currentUser.id %>'">profile</button>
+        <% } else { %>
+            <button onclick="window.location.href='/login'">login</button>
+            <button onclick="window.location.href='/register'">register</button>
+        <% } %>
+    </div>
+</nav>

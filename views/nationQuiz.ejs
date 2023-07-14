@@ -1,0 +1,105 @@
+<html>
+<head>
+    <%- include('htmlHead') %>
+    <script>
+        let currentQuestion = 0;
+        const questionFields = document.getElementsByClassName('question');
+
+        function startQuiz() {
+            const startBtn = document.getElementById('startBtn');
+            startBtn.style.display = 'none';
+
+            const form = document.getElementById('quizForm');
+            form.style.display = 'block';
+
+            questionFields[0].classList.add('visible');
+        }
+
+        function displayNextQuestion() {
+            currentQuestion++;
+            for (let i = 0; i < questionFields.length; i++) {
+                questionFields[i].classList.remove('visible');
+
+                if (currentQuestion === i) {
+                    questionFields[i].classList.add('visible');
+                }
+
+                if ((currentQuestion + 1) === questionFields.length) {
+                    document.getElementById('nextButton').style.display = 'none';
+                    document.getElementById('submitBtn').style.display = "inline";
+                }
+            }
+
+        }
+
+        function displayPrevQuestion() {
+            currentQuestion--;
+            for (let i = 0; i < questionFields.length; i++) {
+                questionFields[i].classList.remove('visible');
+
+                if (currentQuestion === i) {
+                    questionFields[i].classList.add('visible');
+                }
+            }
+            if (currentQuestion < questionFields.length - 1) {
+                document.getElementById('nextButton').style.display = 'inline';
+                document.getElementById('submitBtn').style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body
+<% if (result) { %>
+    <% const fullString = result %>
+    <% const extractedString = fullString.split(' ')[0] %>
+    style="background-image: url('/uploads/<%= extractedString %>Background.png')"
+<% } %>
+>
+<%- include('navComponent') %>
+
+<div class="image-container">
+    <div id="content">
+        <% if(result) { %>
+            <h1>You are part of the <%= result %></h1>
+            <button onclick="location.href(window.location.href = '/quiz')">Restart</button>
+        <% } else { %>
+            <button id="startBtn" onclick="startQuiz()">Start</button>
+            <form action="/quiz" method="POST" id="quizForm" style="display: none">
+                <% questions.forEach(question => { %>
+                    <div class="question">
+                        <p><%= question.id %> / <%= questions.length %></p>
+                        <fieldset id="question<%= question.id %>">
+
+                            <legend><%= question.question %></legend>
+
+                            <div>
+                                <input type="radio" name="<%= question.id %>" value="A"
+                                       checked>
+                                <label for="A"><%= question.answer_A %></label>
+                            </div>
+
+                            <div>
+                                <input type="radio" name="<%= question.id %>" value="B">
+                                <label for="B"><%= question.answer_B %></label>
+                            </div>
+
+                            <div>
+                                <input type="radio" name="<%= question.id %>" value="C">
+                                <label for="C"><%= question.answer_C %></label>
+                            </div>
+
+                            <div>
+                                <input type="radio" name="<%= question.id %>" value="D">
+                                <label for="D"><%= question.answer_D %></label>
+                            </div>
+                        </fieldset>
+                    </div>
+                <% }) %>
+                <button type="button" id="backButton" onclick="displayPrevQuestion()">Back</button>
+                <button type="button" id="nextButton" onclick="displayNextQuestion()">Next</button>
+                <button type="submit" id="submitBtn" style="display: none">Results</button>
+            </form>
+        <% } %>
+
+    </div>
+</div>

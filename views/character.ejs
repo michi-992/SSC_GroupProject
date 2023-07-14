@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('htmlHead') %>
+    <script>
+        function deleteComment(id) {
+            const commentID = id;
+            if (confirm('Are you sure you want to delete this comment?')) {
+                fetch(`/characters/character/<%= character.id %>/${id}/delete`, {method: 'delete'})
+                    .then(() => {
+                        location.href = '/characters/character/<%= character.id %>';
+                    })
+            }
+        }
+    </script>
+</head>
+
+<body>
+<%- include('navComponent') %>
+
+<div id="goBackBtnCon">
+    <button onclick="window.history.back()" id="goBackBtn">Go back</button>
+</div>
+<h1><%= character.atlaCharacter %></h1>
+<p class="longDescription"><%= character.longDescription %></p>
+
+
+<h1>Comments</h1>
+
+<% if (currentUser.id) { %>
+    <h2>Create a New Comment</h2>
+    <form action="/characters/create-comment" method="POST">
+        <input type="hidden" name="characterId" value="<%= character.id %>">
+        <textarea name="content" placeholder="Enter your comment here" required></textarea>
+        <br>
+        <button type="submit" class="buttonStyled">Add Comment</button>
+    </form>
+<% } %>
+
+<div id="comments">
+    <% if(comments.length > 0) { %>
+        <% comments.forEach(comment => { %>
+            <div id="commentCards">
+                <div class="comment">
+                    <p class="commentMeta">
+                        <a href="/users/<%= comment.user_id %>"><%= comment.username %></a>,
+                        created at <%= comment.created_at %>
+                    </p>
+                    <p class="comment-content"><%= comment.content %></p>
+
+                    <% if(currentUser && (currentUser.role === 'Administrator' || currentUser.id === comment.user_id)) { %>
+                        <button onclick="deleteComment(<%= comment.id %>)" class="buttonStyled button-right">Delete
+                        </button>
+                    <% } %>
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <div>No comments yet.</div>
+    <% } %>
+
+</div>
+</body>

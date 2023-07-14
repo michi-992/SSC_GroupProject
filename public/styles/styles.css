@@ -2,7 +2,12 @@ body {
     text-align: center;
     background-image: url('../uploads/DefaultBackground.png');
     color: #48321f;
-    font-family: Arial;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: 'Architects Daughter', cursive;
 }
 
 #topNav {
@@ -11,13 +16,220 @@ body {
     padding: 20px;
     margin: 0;
     position: sticky;
+    z-index: 100;
     top: 0;
 }
 
-#topNav a {
+#topNav > a {
     color: white;
-    padding: 0 10px;
+    margin: 0 20px;
     font-size: 20px;
+}
+
+#profileButtons {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+#profileButtons > button {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: beige;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+#profileButtons > button:hover {
+    background-color: #d2b48c;
+}
+
+#logo {
+    position: absolute;
+    display: flex;
+    align-content: start;
+    top: 5px;
+    left: 5px;
+}
+
+#logo img {
+    width: 80px;
+    background-color: #685646;
+    border-radius: 40px;
+    box-shadow: 0 5px 10px black;
+}
+#logo >a {
+    color: white;
+    margin-left: 15px;
+    margin-top: 6px;
+    font-size: 30px;
+}
+
+.comment {
+    width: 500px;
+    margin: 10px auto;
+    padding: 5px 20px;
+    background-color: #48321f;
+    color: white;
+    border-radius: 20px;
+}
+
+.commentMeta {
+    background-color: tan;
+    border-radius: 5px;
+    color: black;
+    font-size: 16px;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.comment-content {
+    text-align: left;
+}
+
+.button-right {
+
+}
+
+h1 {
+    margin: 50px 50px;
+    font-size: 60px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto 50px auto;
+    max-width: 1100px;
+}
+
+#atla_characters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.characterCard {
+    background-color: #48321f;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.characterCard h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.shortDescription {
+    font-size: 16px;
+    background-color: #d2b48c;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px auto 20px auto;
+}
+
+.characterCard a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #333;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.characterCard a:hover {
+    color: black;
+}
+
+#goBackBtnCon {
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+}
+
+#goBackBtn {
+    background-color: #48321f;
+    color: #fff;
+    margin-top: 20px;
+    margin-left: 0;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    top: 60px;
+    left: 0;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+#goBackBtn:hover {
+    background-color: #654321;
+
+}
+
+.longDescription {
+    background-color: #d2b48c;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px auto 20px auto;
+    text-align: justify;
+    max-width: 800px;
+}
+
+form {
+    background-color: tan;
+    padding: 8px 20px;
+    width: fit-content;
+    border-radius: 10px;
+    margin: auto;
+    border-color: #48321f;
+}
+
+#explanationText, .explanationText {
+    background-color: #d2b48c;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px auto 20px auto;
+    text-align: justify;
+    max-width: 1100px;
+}
+
+.canvas-container {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.chat-container {
+    flex: 1;
+}
+
+#mapCanvas {
+    top: 0;
+    left: 0;
+}
+
+#mapContainer {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 20px;
+}
+
+#profileButtons > button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #d2b48c;
 }
 
 .image-container {
@@ -33,6 +245,44 @@ body {
     /*align-content: center;*/
 }
 
+textarea {
+    border-color: #48321f;
+    min-width: 300px;
+    min-height: 80px;
+}
+
+#comments {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.buttonStyled {
+    display: inline-block;
+    padding: 6px 10px;
+    margin: 10px;
+    background-color: #694c41;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.buttonStyled:hover {
+    background-color: #8f674f;
+    transform: scale(1.05);
+}
+
+.buttonStyled:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #8f674f;
+}
+
 .userDiv {
     border: 1px black;
 }
@@ -41,15 +291,35 @@ h1 {
     margin: 12px;
 }
 
-#userCards {
-    width: 100%;
-    table-layout: fixed;
-    border-spacing: 40px;
+.userCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
-#userCard {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+
+.userCard {
+    background-color: tan;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.userCard:hover {
+    background-color: #8f674f;
+}
+
+
+.userCard a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.userCard a:hover {
+    text-decoration: underline;
+    color: white;
 }
 
 
@@ -81,7 +351,7 @@ h1 {
 }
 
 #content {
-margin-top: 60px;
+    margin-top: 60px;
     margin-bottom: 100px;
     overflow-y: scroll;
     width: 80%;
@@ -116,5 +386,36 @@ input {
 }
 
 #profilePic {
-    width:50%;
+    width: 200px;
 }
+
+.question {
+    display: none;
+}
+
+.question.visible {
+    display: block;
+}
+
+.profile {
+    background-color: tan;
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px 30px;
+    gap: 20px;
+    border-radius: 20px;
+}
+
+.flexCol {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+}
+
+.gridItem {
+    display: inline;
+    width: 100px;
+}
+
+

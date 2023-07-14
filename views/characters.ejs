@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('htmlHead') %>
+</head>
+
+<body>
+<%- include('navComponent') %>
+
+<h1>Characters</h1>
+<div id="atla_characters">
+    <% characters.forEach(character => { %>
+        <div class="characterCard">
+            <h2><%= character.atlaCharacter %></h2>
+            <div class="shortDescription">
+                <%= character.shortDescription %>
+                <div style="text-align: center">
+                <a href="/characters/character/<%= character.id %>" style="font-size: 16px">
+                    see more...
+                </a>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>
+</body>
+
