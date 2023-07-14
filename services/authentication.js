@@ -40,10 +40,14 @@ function authenticateJWT(req, res, next) {
             req.currentUser = user;
             console.log('userId ' + userID)
             console.log('current id ' + req.currentUser.id)
-            if (userID !== req.currentUser.id) {
-                res.render('error');
-            } else {
+            if(user.role === 'Administrator') {
                 next();
+            } else {
+                if (userID !== req.currentUser.id) {
+                    res.render('error');
+                } else {
+                    next();
+                }
             }
         })
     } else {

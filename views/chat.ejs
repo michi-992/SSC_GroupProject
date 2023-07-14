@@ -1,34 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat</title>
-    <link rel="stylesheet" href="/styles/styles.css">
+    <%- include('htmlHead') %>
 </head>
 <body>
 <%- include('navComponent') %>
+<h1>Welcome, <%= username %></h1>
+
 <div class="container">
+    <div id="explanationText">Welcome to our exciting chat forum, where the possibilities are endless! Step into our virtual map, a realm
+        brimming with elemental rooms, where you can harness the power of conversation and camaraderie. Explore the
+        vibrant
+        landscapes of the Four Nations, from the serene Air Temple to the bustling streets of Ba Sing Se. Each room
+        holds
+        its own elemental essence, inviting you to delve into the depths of bending techniques and engage in lively
+        discussions about the intricacies of this beloved universe. Unleash your imagination and let your words flow
+        like
+        bending arts, as you connect with like-minded fans who share your passion for Aang's heroic journey. From
+        debating
+        the philosophies of the different bending styles to analyzing the deep character arcs, our chat forum offers a
+        sanctuary for all those who have been touched by the magic of Avatar: The Last Airbender. So, join us and become
+        part of this incredible community where the spirits of friendship and knowledge intertwine, and the legacy of
+        Avatar
+        lives on through the power of conversation.
+    </div>
     <div class="canvas-container">
-        <div class="image-container">
-            <div id="mapContainer">
-                <canvas id="mapCanvas" width="800" height="500"></canvas>
-            </div>
+        <div id="mapContainer">
+            <canvas id="mapCanvas" width="800" height="500"></canvas>
         </div>
     </div>
     <div class="chat-container">
-        <div id="content">
-            <h1>Welcome, <%= username %></h1>
-
-            <div id="messages-container">
-                <div id="messages"></div>
-            </div>
-            <input id="text" type="text">
-            <input id="currentRoom" type="hidden">
-            <button onclick="sendMyMessage()">Send</button>
+        <div id="messages-container">
+            <div id="messages"></div>
         </div>
+        <input id="text" type="text">
+        <input id="currentRoom" type="hidden">
+        <button onclick="sendMyMessage()">Send</button>
     </div>
 </div>
 
@@ -36,11 +43,15 @@
     const canvas = document.getElementById('mapCanvas');
     const ctx = canvas.getContext('2d');
     const roomSpots = [
-        {name: 'fire', loc_x: 100, loc_y: 240},
-        {name: 'air', loc_x: 720, loc_y: 300},
-        {name: 'water', loc_x: 390, loc_y: 410},
-        {name: 'earth', loc_x: 592, loc_y: 158},
-        {name: 'cabbage', loc_x: 330, loc_y: 140}
+        {name: 'Fire Nation', loc_x: 200, loc_y: 240},
+        {name: 'Northern Watertribe', loc_x: 400, loc_y: 90},
+        {name: 'Eastern Air Temple', loc_x: 600, loc_y: 290},
+        {name: 'Southern Air Temple', loc_x: 350, loc_y: 340},
+        {name: 'Western Air Temple', loc_x: 230, loc_y: 180},
+        {name: 'Southern Watertribe', loc_x: 385, loc_y: 400},
+        {name: 'Ba Sing Se', loc_x: 520, loc_y: 170},
+        {name: 'Si Wong Desert', loc_x: 480, loc_y: 250},
+        {name: 'Cabbage', loc_x: 360, loc_y: 160}
     ]
 
     const map = new Image(570, 321);
@@ -63,20 +74,24 @@
             ctx.strokeStyle = '#2d2d2d';
 
             switch (name) {
-                case 'fire':
-                    ctx.fillStyle = '#ff2525'; // Dark red
+                case 'Fire Nation':
+                    ctx.fillStyle = '#900000'; // Dark red
                     break;
-                case 'air':
+                case 'Eastern Air Temple':
+                case 'Southern Air Temple':
+                case 'Western Air Temple':
                     ctx.fillStyle = '#ffffff'; // Gray
                     break;
-                case 'water':
-                    ctx.fillStyle = '#1818da'; // Dark blue
+                case 'Northern Watertribe':
+                case 'Southern Watertribe':
+                    ctx.fillStyle = '#191995'; // Dark blue
                     break;
-                case 'earth':
-                    ctx.fillStyle = '#d97635'; // Brown
+                case 'Ba Sing Se':
+                case 'Si Wong Desert':
+                    ctx.fillStyle = '#99512a'; // Brown
                     break;
-                case 'cabbage':
-                    ctx.fillStyle = '#14c92c'; // Green
+                case 'Cabbage':
+                    ctx.fillStyle = '#1a6800'; // Green
                     break;
                 default:
                     ctx.fillStyle = '#6e6e6e'; // Default gray
@@ -116,7 +131,7 @@
                 ctx.strokeStyle = '#ffffff';
                 ctx.arc(room.loc_x, room.loc_y, 15, 0, 2 * Math.PI);
                 ctx.fillStyle = '#282828';
-                ctx.font = '30px Arial';
+                ctx.font = '20px Arial';
                 ctx.strokeText(room.name, room.loc_x + 15, room.loc_y);
                 ctx.fillText(room.name, room.loc_x + 15, room.loc_y);
                 ctx.lineWidth = 2;

@@ -21,8 +21,9 @@ async function getUser(req, res, next) {
         const currentUser = req.currentUser;
         const user = await userModel.getUser(req.params.id);
         const teams = await teamModel.getTeamsByID(req.params.id);
-console.log(teams);
-        res.render('user', {user, currentUser, teams});
+        const profilePic = await pictureModel.getProfilePicByUserId(req.params.id);
+        console.log(profilePic);
+        res.render('user', {user, currentUser, teams, profilePic});
     } catch (error) {
         next(error);
     }
@@ -42,8 +43,8 @@ async function editUser(req, res, next) {
 async function updateUser(req, res, next) {
     try {
         const currentUser = req.currentUser;
-        const user = await userModel.getUser(currentUser.id);
-
+        const userID = req.params.id;
+        const user = await userModel.getUser(userID);
         const users = await userModel.getUsers();
         const checkIfExistingUsername = users.find(u => {
             if (user.username === u.username) {
@@ -57,9 +58,9 @@ async function updateUser(req, res, next) {
             const message = 'This username is already taken.'
             res.render('editUser', {user, message, currentUser});
         } else {
-            await userModel.updateUser(req.body, currentUser.id);
-            const user = await userModel.getUser(currentUser.id);
-            res.render('user', {user, currentUser});
+            await userModel.updateUser(req.body, userID);
+
+            res.redirect(`/users/${userID}`);
         }
 
     } catch (error) {

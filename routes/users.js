@@ -12,7 +12,7 @@ router.get('/', userController.getUsers);
 router.get('/:id', userController.getUser);
 
 router.get('/:id/edit', authenticationService.authenticateJWT, userController.editUser);
-router.post('/:id', authenticationService.authenticateJWT, userController.updateUser);
+router.post('/:id/edit', authenticationService.authenticateJWT, userController.updateUser);
 
 router.delete('/:id/delete', authenticationService.authenticateJWT, userController.deleteUser);
 router.delete('/:id/nation/delete', authenticationService.authenticateJWT, nationController.deleteNation);

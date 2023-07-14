@@ -18,36 +18,34 @@
 <body>
 <%- include('navComponent') %>
 
-<div class="comments">
-    <h2><%= character.name %></h2>
-    <p><%= character.longDescription %></p>
-</div>
 
-<h2>Comments</h2>
-<%# form for creating comment%>
+<h1><%= character.atlaCharacter %></h1>
+<p class="explanationText"><%= character.longDescription %></p>
+
 <% if (currentUser.id) { %>
     <h3>Create a New Comment</h3>
     <form action="/characters/create-comment" method="POST">
         <input type="hidden" name="characterId" value="<%= character.id %>">
-        <textarea name="content" placeholder="Enter your comment" required></textarea>
-        <button type="submit">Add Comment</button>
+        <textarea name="content" placeholder="Enter your comment here" required></textarea>
+        <br>
+        <button type="submit" class="buttonStyled">Add Comment</button>
     </form>
 <% } %>
 
+<h2>Comments</h2>
 <div id="comments">
     <% if(comments.length > 0) { %>
         <% comments.forEach(comment => { %>
             <div id="commentCards">
                 <div class="comment">
-                    <h6>
+                    <p>
                         <a href="/users/<%= comment.user_id %>"><%= comment.username %></a>,
                         created at <%= comment.created_at %>
-                    </h6>
+                    </p>
                     <p><%= comment.content %></p>
 
                     <% if(currentUser && (currentUser.role === 'Administrator' || currentUser.id === comment.user_id)) { %>
                         <button onclick="deleteComment(<%= comment.id %>)">Delete</button>
-                        <p>Hi</p>
                     <% } %>
                 </div>
             </div>

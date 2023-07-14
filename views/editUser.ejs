@@ -9,7 +9,7 @@
 <div class="image-container">
     <div id="content">
         <h1>Edit your Profile</h1>
-        <form action="/users/<%= user.id %>" method="post">
+        <form action="/users/<%= user.id %>/edit" method="post">
             <% if(message) { %>
                 <p><%= message %></p>
             <% } %>

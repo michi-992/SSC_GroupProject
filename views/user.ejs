@@ -44,12 +44,12 @@
 <div class="image-container">
     <div id="content">
         <h1>This is user <%= user.id %></h1>
-        <img src="/uploads/<%= user.profilePicture ? user.profilePicture + '.jpg' : 'defaultProfile.jpg' %>"
+        <img src="/uploads/<%= profilePic ? profilePic + '.jpg' : 'defaultProfile.jpg' %>"
              alt="User image" id="profilePic"/>
         <div>
             <% Object.entries(user).forEach(([key, value]) => { %>
-                <% if (key === 'password' || key === 'profilePicture') {
-                    return
+                <% if (key === 'id' || key === 'password' || key === 'profilePicture' || key === 'role') {
+                    return;
                 } else if (key === 'nation') { %>
                     <% if(value) { %>
                         <p class="label"><%= key %> </p>
@@ -57,36 +57,39 @@
 
                         <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
                             <button onClick="deleteNation()">Delete Nation</button>
-                        <% } else { %>
-                            <p class="userInformation">nationless</p>
-                            <a href="/quiz">Find out your nation!</a>
                         <% } %>
+
                     <% } else { %>
                         <p class="label"><%= key %> </p>
                         <p class="userInformation">nationless</p>
+                        <% if (currentUser && currentUser.id === user.id) { %>
+                            <button onclick="window.location.href='/quiz'">Find out your nation!</button>
+                        <% } %>
                     <% } %>
 
                 <% } else { %>
-                    <p class="label"><%= key %> </p>
-                    <p class="userInformation"><%= value %></p>
+                        <p class="label"><%= key %> </p>
+                        <p class="userInformation"><%= value %></p>
                 <% } %>
             <% }) %>
 
             <% if (currentUser && (currentUser.role === 'Administrator' || currentUser.id === user.id)) { %>
-                <a href="/users/<%= user.id %>/edit">Edit user</a>
+                <button onclick="window.location.href='/users/<%= user.id %>/edit'">Edit user</button>
                 <button onClick="deleteRequest()">Delete User</button>
-                <a href="/users/<%= user.id %>/picture/upload">Set profile picture</a>
+                <button onclick="window.location.href='/users/<%= user.id %>/picture/upload'">Set profile picture</button>
             <% } %>
         </div>
+
         <div>
             <% teams.forEach(team => { %>
                 <p><%= team.teamName %></p>
                 <% for (let i = 1; i < 5; i++) { %>
-                <% if(team['member_' + i]) {%>
-                    <img src="/pictures/<%= team['member_' + i] ? team['member_' + i] + '.png' : '' %>" style="width: 200px">
+                    <% if(team['member_' + i]) { %>
+                        <img src="/pictures/<%= team['member_' + i] ? team['member_' + i] + '.png' : '' %>"
+                             style="width: 200px">
                     <% } %>
                 <% } %>
-            <button onclick="deleteTeam(<%= team.id %>)">Delete <%= team.teamName %></button>
+                <button onclick="deleteTeam(<%= team.id %>)">Delete <%= team.teamName %></button>
             <% }) %>
 
         </div>

@@ -17,15 +17,16 @@ let getUsers = () => new Promise((resolve, reject) => {
 })
 
 let getUser = (id) => new Promise((resolve, reject) => {
-    const sql = 'SELECT users.*, users_nation.nation, user_pictures.profilePicture FROM users LEFT JOIN users_nation ON users.id = users_nation.userID LEFT JOIN user_pictures ON users.id = user_pictures.userID WHERE users.id = ?';
+    const sql = 'SELECT users.*, users_nation.nation FROM users LEFT JOIN users_nation ON users.id = users_nation.userID WHERE users.id = ?';
 
     db.query(sql, [id], function (err, users, fields) {
         if (err) {
-            reject(err)
+            reject(err);
+        } else {
+            console.log(users[0]);
+            resolve(users[0]);
         }
-        console.log(users[0]);
-        resolve(users[0]);
-    })
+    });
 });
 
 let updateUser = (userData, id) => new Promise(async (resolve, reject) => {
@@ -40,7 +41,6 @@ let updateUser = (userData, id) => new Promise(async (resolve, reject) => {
         userData.password = await bcrypt.hash(userData.password, 10);
         sql += ", password = " + db.escape(userData.password);
     }
-    console.log(id);
     sql += "WHERE id = " + id;
 
     db.query(sql, function (err, result, fields) {
@@ -48,6 +48,7 @@ let updateUser = (userData, id) => new Promise(async (resolve, reject) => {
             console.log(err);
             reject(err);
         }
+    console.log(result);
         resolve(userData);
     })
 })
